@@ -17,6 +17,15 @@
   	<put-attribute name="body" value="/WEB-INF/JSP/login.jsp"/>
   </definition>
   
+   
+  <definition name="signin" extends="template">
+  	<put-attribute name="body" value="/WEB-INF/JSP/signin.jsp"/>
+  </definition> 
+   
+  <definition name="registration" extends="template">
+  	<put-attribute name="body" value="/WEB-INF/JSP/registration.jsp"/>
+  </definition>
+  
   <definition name="generator" extends="template">
   	<put-attribute name="body" value="/WEB-INF/JSP/generator.jsp"></put-attribute>
   </definition>

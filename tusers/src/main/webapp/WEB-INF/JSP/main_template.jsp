@@ -6,7 +6,7 @@
 
 <html>
 <head>
-<title>TCreator page</title>
+<title>TUsers</title>
 <spring:url value="/files/css/main.css" var="mainCSS" />
 <spring:url
 	value="/files/css/bootstrap-3.3.6-dist/css/bootstrap.min.css"
