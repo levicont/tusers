@@ -6,49 +6,49 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 import javax.persistence.PersistenceUnit;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.lvg.tusers.dao.UserDao;
 import com.lvg.tusers.models.User;
 
-@Repository("userDao")
-@Transactional
-public class UserJpaDao implements UserDao{
+@Repository
+public class UserDaoJpaImpl implements UserDao{
 	
-	private static final String GET_ALL_USERS_SQL = "SELECT e FROM user e"; 
+	private static final String GET_ALL_USERS_SQL = "SELECT u FROM user u"; 
 	
 		
-	
+	@PersistenceUnit(unitName="emf")
 	private EntityManagerFactory emf;
 	
-	@PersistenceUnit
-	public void setEntityManagerFactory(EntityManagerFactory emf){
-		this.emf = emf;
+	public EntityManagerFactory getEmf(){
+		return this.emf;
 	}
 	
+	public void setEmf(EntityManagerFactory entityManager){
+		this.emf = entityManager;
+	}
+	
+	
 	@Override
-	public List<User> getAll() {		
+	@Transactional
+	public List<User> getAll() {
 		EntityManager em = emf.createEntityManager();
-		if (em == null){
+		Query query = em.createQuery(GET_ALL_USERS_SQL);
+		if (emf == null){
 			User user = new User();
 			user.setName("TOM");
 			List<User> result = new ArrayList<>();
 			result.add(user);
 			return result;
 		}
-		return em.createQuery(GET_ALL_USERS_SQL).getResultList();		
+		return query.getResultList();		
 	}
-
-	@Override
-	public int add(User user) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
 	@Override
 	public User get(long id) {
 		// TODO Auto-generated method stub

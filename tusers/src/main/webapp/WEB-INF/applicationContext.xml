@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
@@ -11,25 +10,43 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<context:annotation-config/>
+	<context:annotation-config />
+	<context:spring-configured />
 
 	<bean id="emf"
 		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="postgres" />
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
 	</bean>
-
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="emf" />
 	</bean>
+
+	<context:component-scan base-package="com.lvg.tusers">
+		<!-- context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" 
+			/ -->
+	</context:component-scan>
+
+
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+	<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+	<bean id="userDao" class="com.lvg.tusers.dao.jpa.UserDaoJpaImpl"/>
 	
-	<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
-	<bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
-	
-  	<bean id="userDao" class="com.lvg.tusers.dao.jpa.UserJpaDao"/>
-	
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-	
+
+	<tx:annotation-driven mode="aspectj"
+		transaction-manager="transactionManager" />
+
+
+
 
 
 </beans>

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lvg.tusers.config.R;
-import com.lvg.tusers.dao.jpa.UserJpaDao;
+import com.lvg.tusers.dao.jpa.UserDaoJpaImpl;
 import com.lvg.tusers.models.User;
 
 @Controller
@@ -42,7 +42,7 @@ public class MainController implements R {
 				if (user.getEmail().equals(currentUser.getEmail())
 						&& user.getPassword().equals(currentUser.getPassword())) {
 					request.getSession().setAttribute("currentUser", user);
-					model.addAttribute("userList", new UserJpaDao().getAll());
+					model.addAttribute("userList", new UserDaoJpaImpl().getAll());
 					return "home";
 				}
 			}

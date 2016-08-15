@@ -20,14 +20,7 @@
 	</listener-class>
 </listener>
 
-<!-- context-param>
-	<param-name>contextConfigLocation</param-name>
-	<param-value>	
-		classpath:persistence-context.xml		
-	</param-value>
-</context-param-->
  
- <!-- classpath:dataSource-context.xml -->
  <!-- error-page>
 	<error-code>404</error-code>
 	<location>/errors/404.html</location>

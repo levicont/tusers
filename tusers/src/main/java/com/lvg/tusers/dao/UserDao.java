@@ -6,8 +6,7 @@ import com.lvg.tusers.models.User;
 
 public interface UserDao {
 	
-	public List<User> getAll();
-	public int add(User user);
+	public List<User> getAll();	
 	public User get(long id);
 	
 }
