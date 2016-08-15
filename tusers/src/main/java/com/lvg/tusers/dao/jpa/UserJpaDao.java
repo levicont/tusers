@@ -22,12 +22,17 @@ public class UserJpaDao implements UserDao{
 	private static final String GET_ALL_USERS_SQL = "SELECT e FROM user e"; 
 	
 		
-	@PersistenceContext
-	private EntityManager em;
-		
+	
+	private EntityManagerFactory emf;
+	
+	@PersistenceUnit
+	public void setEntityManagerFactory(EntityManagerFactory emf){
+		this.emf = emf;
+	}
 	
 	@Override
 	public List<User> getAll() {		
+		EntityManager em = emf.createEntityManager();
 		if (em == null){
 			User user = new User();
 			user.setName("TOM");
