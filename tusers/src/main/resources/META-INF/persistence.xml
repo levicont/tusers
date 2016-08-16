@@ -3,9 +3,9 @@
 	version="1.0">
 		
 	<persistence-unit name="postgres"  transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<provider>org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider</provider>
 		<class>com.lvg.tusers.model.User</class>
-		<properties>
+		<!-- properties>
 			<property name="hibernate.archive.autodetection" value="class" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
@@ -15,7 +15,7 @@
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.flushMode" value="FLUSH_AUTO" />
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-		</properties>
+		</properties-->
 	</persistence-unit>
 	
 	
