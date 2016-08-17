@@ -2,6 +2,7 @@ package com.lvg.tusers.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lvg.tusers.config.R;
+import com.lvg.tusers.dao.UserDao;
 import com.lvg.tusers.dao.jpa.UserDaoJpaImpl;
 import com.lvg.tusers.models.User;
 
@@ -17,6 +19,9 @@ import com.lvg.tusers.models.User;
 public class MainController implements R {
 	private final String GREETING_STRING = "Hello everyone!";
 
+	@Autowired
+	private UserDao userDao;
+	
 	@RequestMapping("/")
 	public String index(HttpServletRequest request) {
 		User user = (User) request.getSession().getAttribute("currentUser");
@@ -42,7 +47,7 @@ public class MainController implements R {
 				if (user.getEmail().equals(currentUser.getEmail())
 						&& user.getPassword().equals(currentUser.getPassword())) {
 					request.getSession().setAttribute("currentUser", user);
-					model.addAttribute("userList", new UserDaoJpaImpl().getAll());
+					model.addAttribute("userList", userDao.getAll());
 					return "home";
 				}
 			}

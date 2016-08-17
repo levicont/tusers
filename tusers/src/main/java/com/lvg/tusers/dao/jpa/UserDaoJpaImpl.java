@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.lvg.tusers.dao.UserDao;
 import com.lvg.tusers.models.User;
 
-@Repository
+@Repository("userDao")
 public class UserDaoJpaImpl implements UserDao{
 	
 	private static final String GET_ALL_USERS_SQL = "SELECT u FROM user u"; 
