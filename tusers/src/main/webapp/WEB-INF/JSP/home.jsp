@@ -6,7 +6,11 @@
 <div>
 	<p>${greeting }</p>
 	<p class="h4">Welcome to users page.</p>	
-	<c:forEach var="usr" items="${userList}">
-		<p>${usr.name}</p>
+	<c:forEach var="usr" items="${userList}" varStatus="item">
+		<p>User ${item.count} </p>
+		<p>Name: ${usr.name}</p>
+		<p>Surname: ${usr.surname}</p>
+		<p>E-mail: ${usr.email}</p>
+		<p>PWD: ${usr.password}</p>
 	</c:forEach>
 </div>
