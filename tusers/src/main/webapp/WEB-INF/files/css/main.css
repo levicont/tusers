@@ -72,6 +72,11 @@ html, body, #content {
 	color:#ff2222;
 }
 
+.lvg-valid{
+	font-size:10pt;
+	color:green;
+}
+
 .lvg-error-message{
 	font-size:24pt;
 	color:#ff2222;

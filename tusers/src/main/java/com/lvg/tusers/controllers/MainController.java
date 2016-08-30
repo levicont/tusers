@@ -72,4 +72,10 @@ public class MainController implements R {
 		model.addAttribute("user", new User());
 		return "registration";
 	}
+	
+	@RequestMapping(value= "register", method = RequestMethod.POST)
+	public String register(@ModelAttribute User user, Model model){
+		model.addAttribute(ATR_CURRENT_USER, user);
+		return "home";
+	}
 }

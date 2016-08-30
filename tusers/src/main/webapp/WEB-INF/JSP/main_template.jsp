@@ -17,7 +17,7 @@
 <spring:url
 	value="/files/css/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"
 	var="bootStrapDateTimePickerJS" />
-
+<spring:url value="/files/js/validator.js" var="validatorJS"/>
 
 <!-- CSS links -->
 <spring:url value="/files/css/main.css" var="mainCSS" />
@@ -36,6 +36,7 @@
 <script src="${momentWithLocalesJS }"></script>
 <script src="${bootstrapStrapJS }"></script>
 <script src="${bootStrapDateTimePickerJS }"></script>
+<script src="${validatorJS}"> </script>   
 
 <link rel="stylesheet" href="${bootStrapCSS }" type="text/css">
 <link rel="stylesheet" href="${bootStrapDateTimePickerCSS }" type="text/css">
