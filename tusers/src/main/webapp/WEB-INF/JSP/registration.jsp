@@ -8,7 +8,7 @@
 
 <div class="row">
 	<div class="col-md-offset-3 col-lg-6">
-		<form:form modelAttribute="user" method="POST" onsubmit="javascript:smbUser();" id="registerForm">
+		<form:form modelAttribute="user" method="POST" action="javascript:sbmUser();" id="registerForm">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<p class="h4">Registration</p>
@@ -107,7 +107,7 @@
 				<div class="panel-footer">
 					<div class="row">
 						<div class="col-md-offset-2 col-lg-3">
-							<input class="btn btn-primary" type="submit" onsubmit="smbUser()"
+							<input class="btn btn-primary" type="submit" 
 								value="Register">
 						</div>
 					</div>

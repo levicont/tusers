@@ -2,12 +2,14 @@ package com.lvg.tusers.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.aspectj.lang.annotation.AfterReturning;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -76,8 +78,13 @@ public class MainController implements R {
 	}
 	
 	@RequestMapping(value= "registration", method = RequestMethod.POST)
-	public String register(@ModelAttribute User user, BindingResult bindingResult, Model model){
-		model.addAttribute(ATR_CURRENT_USER, user);
-		return "home";
+	public String register(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model, HttpServletRequest request){
+		HttpSession currentSession = request.getSession();
+		
+		if(bindingResult.hasErrors())
+			return "registration";
+		
+		currentSession.setAttribute(ATR_CURRENT_USER, user);
+		return "redirect:/";
 	}
 }

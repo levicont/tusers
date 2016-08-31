@@ -23,5 +23,11 @@ public interface R {
 		}};
 		
 	}
+	
+	public interface Exceptions{
+		
+		public String ERROR_MSG_404 = "PAGE NOT FOUND";
+		public String ERROR_MSG_500 = "INTERNAL ERROR";
+	}
 
 }

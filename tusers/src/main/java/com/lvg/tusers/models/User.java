@@ -2,6 +2,7 @@ package com.lvg.tusers.models;
 
 import java.util.Date;
 
+import javax.annotation.Nonnegative;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tusers.user")
@@ -21,13 +23,20 @@ public class User {
 	@Column(name="id_user")
 	private Long id;
 	
+	@NotNull
 	private String name;
+	
+	@NotNull
 	private String surname;
+	
+	@NotNull
 	private String email;
 	private String info;
 	
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
+	
+	@NotNull
 	private String password;
 	
 	

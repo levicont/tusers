@@ -40,11 +40,13 @@ function sbmUser() {
 	} else
 		print($('#repassword-lvg-error'), "OK");
 	
-	if(hasError){
-		event.preventDefault();
-		return;
+	if(hasError){		
+		alert("Has mistakes");
+		
 	}
 	else{		
+		alert("No mistakes");
+		$('#registerForm').attr('action','registration');
 		$('#registerForm').submit();
 	}
 

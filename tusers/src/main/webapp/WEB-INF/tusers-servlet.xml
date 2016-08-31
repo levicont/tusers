@@ -28,12 +28,12 @@
 		</property>
 	</bean>
 	<mvc:resources location="/WEB-INF/files/" mapping="/files/**"/>  	
-	<!-- bean class="com.lvg.tcreator.exceptions.TCreatorExceptionResolver">
+	<bean class="com.lvg.tusers.exceptions.TUsersExceptionResolver">
 	    <property name="exceptionMappings">
 	        <map>
-	            <entry key="com.lvg.tcreator.exceptions.TCreatorException" value="error"/>
+	            <entry key="com.lvg.tusers.exceptions.TUsersException" value="error"/>
 	        </map>	        
 	    </property>
 	    <property name="defaultErrorView" value="deferror"></property>
-	</bean-->
+	</bean>
 </beans>
