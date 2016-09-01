@@ -4,12 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.aspectj.lang.annotation.AfterReturning;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.lvg.tusers.config.R;
 import com.lvg.tusers.dao.UserDao;
-import com.lvg.tusers.dao.jpa.UserDaoJpaImpl;
 import com.lvg.tusers.models.User;
 import com.lvg.tusers.utils.CodecsUtil;
 
@@ -85,6 +82,6 @@ public class MainController implements R {
 			return "registration";
 		
 		currentSession.setAttribute(ATR_CURRENT_USER, user);
-		return "redirect:/";
+		return "home";
 	}
 }

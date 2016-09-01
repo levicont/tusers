@@ -40,14 +40,14 @@ function sbmUser() {
 	} else
 		print($('#repassword-lvg-error'), "OK");
 	
-	if(hasError){		
-		alert("Has mistakes");
-		
+	if(hasError){			
+		return;
 	}
 	else{		
-		alert("No mistakes");
 		$('#registerForm').attr('action','registration');
+		$('#registerForm').attr('method','post');
 		$('#registerForm').submit();
+		return true;
 	}
 
 }
