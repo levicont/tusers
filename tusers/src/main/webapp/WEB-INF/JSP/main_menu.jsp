@@ -19,20 +19,15 @@
 			<a class="navbar-brand" href='<spring:url value="/"/>'>TUsers</a>
 		</div>
 		 <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="#">${currentUser.name }</a></li>
-        <li><a href="#">${currentUser.surname }</a></li>
-        <li><a href="#">${currentUser.birthday }</a></li>
-        <li><a href="#">${currentUser.email }</a></li>
-                    
-      </ul>      
-      <ul class="nav navbar-nav navbar-right">
-        <c:if test="${currentUser!=null }">
-        <li><a href="logout">Logout</a></li>
-        </c:if>
-                
-      </ul>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
+      
+      <c:if test="${currentUser!=null }">          
+      <ul class="nav navbar-nav navbar-right">        
+        <li><a href="logout">Logout <i class="fa fa-sign-out"></i></a></li>                    
+      </ul>  
+      <p class="navbar-text navbar-right">Sign in as 
+      	<a href='#' class="navbar-link">${currentUser.name } ${currentUser.surname }</a></p>     
+      </c:if>    
     </div><!-- /.navbar-collapse -->
 	</div>
 </nav>

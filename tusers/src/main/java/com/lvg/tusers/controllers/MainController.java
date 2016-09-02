@@ -1,5 +1,7 @@
 package com.lvg.tusers.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -77,9 +80,17 @@ public class MainController implements R {
 	@RequestMapping(value= "registration", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model, HttpServletRequest request){
 		HttpSession currentSession = request.getSession();
-		
-		if(bindingResult.hasErrors())
+		System.out.println("--------------REGISTRATION POST MAPPING----------");
+		if(bindingResult.hasErrors()){
+			System.out.println("USER REGISTRATION HAS: "+bindingResult.getFieldErrorCount()+" ERRORS");
+			List<ObjectError> list = bindingResult.getAllErrors();
+			for(ObjectError or : list){
+				System.out.printf("%s - ErrorName \n", or.getObjectName());
+				System.out.printf("%s - ErrorCode \n", or.getCode());
+				System.out.printf("%s - ErrorMessage \n", or.getDefaultMessage());
+			}
 			return "registration";
+		}
 		
 		currentSession.setAttribute(ATR_CURRENT_USER, user);
 		return "home";

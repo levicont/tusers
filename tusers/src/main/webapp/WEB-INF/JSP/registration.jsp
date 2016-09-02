@@ -42,7 +42,9 @@
 							<div class="form-group">
 								<label for="birthday">Birthday</label>
 								<div class='input-group date' id='datetimepicker'>
-									<form:input path="birthday" id="birthday"
+									<!-- fmt:formatDate pattern='dd.MM.yyyy' type='date'
+									value="${user.birthday }" var="formattedDate" /-->
+									<form:input path="birthday" id="birthday" 
 										cssClass="form-control" />
 									<span class="input-group-addon"> <span
 										class="glyphicon glyphicon-calendar"></span>

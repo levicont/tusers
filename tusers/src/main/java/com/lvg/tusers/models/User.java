@@ -13,6 +13,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 @Table(name = "tusers.user")
 public class User {
@@ -31,8 +33,9 @@ public class User {
 	
 	@NotNull
 	private String email;
-	private String info;
+	private String info;	
 	
+	@DateTimeFormat(pattern = "dd.MM.yyyy")
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
 	
