@@ -46,5 +46,25 @@ public class UserDaoJpaImpl implements UserDao{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void add(User record) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(User record) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(User record) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 	
 }

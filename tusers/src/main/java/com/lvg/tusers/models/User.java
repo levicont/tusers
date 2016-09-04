@@ -15,6 +15,8 @@ import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.lvg.tusers.config.R;
+
 @Entity
 @Table(name = "tusers.user")
 public class User {
@@ -25,13 +27,13 @@ public class User {
 	@Column(name="id_user")
 	private Long id;
 	
-	@NotNull
+	@NotNull(message=R.Exceptions.ERROR_INVALID_USR_NAME)
 	private String name;
 	
-	@NotNull
+	@NotNull(message=R.Exceptions.ERROR_INVALID_USR_SURNAME)
 	private String surname;
 	
-	@NotNull
+	@NotNull(message=R.Exceptions.ERROR_INVALID_USR_EMAIL)
 	private String email;
 	private String info;	
 	
@@ -39,7 +41,7 @@ public class User {
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
 	
-	@NotNull
+	@NotNull(message=R.Exceptions.ERROR_INVALID_USR_PASSWORD)
 	private String password;
 	
 	

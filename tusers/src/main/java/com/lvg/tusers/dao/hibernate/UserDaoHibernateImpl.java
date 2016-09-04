@@ -22,8 +22,31 @@ public class UserDaoHibernateImpl extends GenericDaoHibernate implements UserDao
 
 	@Override
 	public User get(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return (User)getSession().get(User.class, id);
 	}
+
+	@Override
+	@Transactional
+	public void add(User record) {
+		getSession().save(record);
+		
+	}
+
+	@Override
+	@Transactional
+	public void update(User record) {
+		getSession().update(record);
+			
+	}
+
+	@Override
+	@Transactional
+	public void delete(User record) {
+		getSession().delete(record);
+		
+	}
+	
+	
 	
 }

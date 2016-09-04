@@ -25,9 +25,17 @@ public interface R {
 	}
 	
 	public interface Exceptions{
+		public String ATR_ERROR_MESSAGE = "errorMessage";
 		
-		public String ERROR_MSG_404 = "PAGE NOT FOUND";
-		public String ERROR_MSG_500 = "INTERNAL ERROR";
+		public String ERROR_SIGNIN = "E-mail or password is not valid";
+		public String ERROR_INVALID_USR_NAME = "User name is not valid";
+		public String ERROR_INVALID_USR_SURNAME = "User surname is not valid";
+		public String ERROR_INVALID_USR_BIRTHDAY = "User birthday is not valid";
+		public String ERROR_INVALID_USR_EMAIL = "User email is not valid";
+		public String ERROR_INVALID_USR_PASSWORD = "User password is not valid";
+		
+		public String ERROR_MSG_404 = "404 PAGE NOT FOUND";
+		public String ERROR_MSG_500 = "500 INTERNAL ERROR";
 	}
 
 }

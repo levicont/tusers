@@ -43,14 +43,20 @@
 	
 	<bean
 		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-
-	<bean id="userDao" class="com.lvg.tusers.dao.hibernate.UserDaoHibernateImpl">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>	
 	
 	<tx:annotation-driven transaction-manager="transactionManager" />
 	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>
+	
+	<!-- DAO -->
+	<bean id="userDao" class="com.lvg.tusers.dao.hibernate.UserDaoHibernateImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>	
+	
+	<!-- SERVICES -->
+	<bean id="userService" class="com.lvg.tusers.services.impl.UserServiceImpl">
+		<property name="dao" ref="userDao"/>
 	</bean>
 	
 	

@@ -17,10 +17,10 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-offset-3 col-lg-6">
+							<p class="lvg-error text-center">${errorMessage }</p>
 							<div class="form-group">
 								<label for="email">E-mail</label>
-								<form:input path="email" placeHolder="E-mail" id="email"
-									cssClass="form-control" />
+								<form:input path="email" placeHolder="E-mail" id="email" cssClass="form-control" />									
 							</div>
 						</div>
 					</div>

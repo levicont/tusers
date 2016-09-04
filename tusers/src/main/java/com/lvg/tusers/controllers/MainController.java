@@ -1,7 +1,5 @@
 package com.lvg.tusers.controllers;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -10,23 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lvg.tusers.config.R;
-import com.lvg.tusers.dao.UserDao;
 import com.lvg.tusers.models.User;
+import com.lvg.tusers.services.UserService;
 import com.lvg.tusers.utils.CodecsUtil;
 
 @Controller
 public class MainController implements R {
 	private final String GREETING_STRING = "Hello everyone!";
 	private final String ATR_CURRENT_USER = "currentUser";
+	
 	@Autowired
-	private UserDao userDao;
+	private UserService userService;
 	
 	@RequestMapping("/")
 	public String index(HttpServletRequest request) {
@@ -54,11 +52,11 @@ public class MainController implements R {
 				if (user.getEmail().equals(currentUser.getEmail())
 						&& user.getPassword().equals(currentPassword)) {
 					request.getSession().setAttribute(ATR_CURRENT_USER, user);
-					model.addAttribute("userList", userDao.getAll());
+					model.addAttribute("userList", userService.getAll());
 					return "home";
 				}
 			}
-		
+		model.addAttribute(R.Exceptions.ATR_ERROR_MESSAGE, R.Exceptions.ERROR_SIGNIN);
 		return "signin";
 	}
 	
@@ -80,15 +78,8 @@ public class MainController implements R {
 	@RequestMapping(value= "registration", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model, HttpServletRequest request){
 		HttpSession currentSession = request.getSession();
-		System.out.println("--------------REGISTRATION POST MAPPING----------");
-		if(bindingResult.hasErrors()){
-			System.out.println("USER REGISTRATION HAS: "+bindingResult.getFieldErrorCount()+" ERRORS");
-			List<ObjectError> list = bindingResult.getAllErrors();
-			for(ObjectError or : list){
-				System.out.printf("%s - ErrorName \n", or.getObjectName());
-				System.out.printf("%s - ErrorCode \n", or.getCode());
-				System.out.printf("%s - ErrorMessage \n", or.getDefaultMessage());
-			}
+		
+		if(bindingResult.hasErrors()){			
 			return "registration";
 		}
 		
