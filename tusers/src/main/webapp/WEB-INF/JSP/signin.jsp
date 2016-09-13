@@ -6,9 +6,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
+<c:url value="j_spring_security_check" var="springSecurityURL"/>
 <div class="row">
 	<div class="col-md-offset-3 col-lg-6">
-		<form:form modelAttribute="user">
+		<form:form modelAttribute="user" method="post" action="j_spring_security_check">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<p class="h4">Sign in</p>
@@ -17,6 +18,9 @@
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-offset-3 col-lg-6">
+							<c:if test="${error != null}">
+								<p class="lvg-error text-center">Error:${error }</p>
+							</c:if>
 							<p class="lvg-error text-center">${errorMessage }</p>
 							<div class="form-group">
 								<label for="email">E-mail</label>

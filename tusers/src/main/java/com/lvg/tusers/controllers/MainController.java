@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lvg.tusers.config.R;
@@ -26,7 +27,7 @@ public class MainController implements R {
 	@Autowired
 	private UserService userService;
 	
-	@RequestMapping("/")
+	/*@RequestMapping("/")
 	public String index(HttpServletRequest request) {
 		User user = (User) request.getSession().getAttribute(ATR_CURRENT_USER);
 		if (null == user) {
@@ -35,15 +36,39 @@ public class MainController implements R {
 		return "home";
 	}
 
-	@RequestMapping(value = "signin", method = RequestMethod.GET)
-	public ModelAndView signin(HttpServletRequest request) {
+	
+	@RequestMapping(value = "/signin", method = RequestMethod.GET)
+	public ModelAndView signin(@RequestParam(name="error", required = false) String error, HttpServletRequest request) {
+		
+		
 		ModelAndView mv = new ModelAndView("signin");
-		mv.addObject("greeting", GREETING_STRING);
+		if(error != null){
+			mv.addObject("error", R.Exceptions.ERROR_SIGNIN);
+		}
+		mv.addObject("user", new User());
+		return mv;
+	}
+	*/
+	
+	@RequestMapping(value= "/home", method= RequestMethod.GET)
+	public String index(HttpServletRequest request) {
+		
+		return "home";
+	}
+	
+	@RequestMapping(value = {"/signin", "/"}, method = RequestMethod.GET)
+	public ModelAndView signin(@RequestParam(name="error", required = false) String error, HttpServletRequest request) {
+		
+		
+		ModelAndView mv = new ModelAndView("signin");
+		if(error != null){
+			mv.addObject("error", R.Exceptions.ERROR_SIGNIN);
+		}
 		mv.addObject("user", new User());
 		return mv;
 	}
 
-	@RequestMapping(value = "signin", method = RequestMethod.POST)
+	/*@RequestMapping(value = "signin", method = RequestMethod.POST)
 	public String signin(@ModelAttribute User currentUser, Model model, HttpServletRequest request) {
 		
 		if (currentUser != null)
@@ -59,6 +84,7 @@ public class MainController implements R {
 		model.addAttribute(R.Exceptions.ATR_ERROR_MESSAGE, R.Exceptions.ERROR_SIGNIN);
 		return "signin";
 	}
+	*/
 	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request)
