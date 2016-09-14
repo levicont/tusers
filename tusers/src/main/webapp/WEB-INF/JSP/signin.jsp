@@ -6,10 +6,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
-<c:url value="j_spring_security_check" var="springSecurityURL"/>
+<c:url value="/signin" var="springSecurityURL"/>
 <div class="row">
 	<div class="col-md-offset-3 col-lg-6">
-		<form:form modelAttribute="user" method="post" action="j_spring_security_check">
+		<form:form modelAttribute="user" method="post">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<p class="h4">Sign in</p>

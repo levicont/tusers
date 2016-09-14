@@ -27,15 +27,15 @@ public class MainController implements R {
 	@Autowired
 	private UserService userService;
 	
-	/*@RequestMapping("/")
+	@RequestMapping("/")
 	public String index(HttpServletRequest request) {
-		User user = (User) request.getSession().getAttribute(ATR_CURRENT_USER);
-		if (null == user) {
-			return "redirect:/signin";
-		}
+//		User user = (User) request.getSession().getAttribute(ATR_CURRENT_USER);
+//		if (null == user) {
+//			return "redirect:/signin";
+//		}
 		return "home";
 	}
-
+	
 	
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public ModelAndView signin(@RequestParam(name="error", required = false) String error, HttpServletRequest request) {
@@ -48,43 +48,7 @@ public class MainController implements R {
 		mv.addObject("user", new User());
 		return mv;
 	}
-	*/
 	
-	@RequestMapping(value= "/home", method= RequestMethod.GET)
-	public String index(HttpServletRequest request) {
-		
-		return "home";
-	}
-	
-	@RequestMapping(value = {"/signin", "/"}, method = RequestMethod.GET)
-	public ModelAndView signin(@RequestParam(name="error", required = false) String error, HttpServletRequest request) {
-		
-		
-		ModelAndView mv = new ModelAndView("signin");
-		if(error != null){
-			mv.addObject("error", R.Exceptions.ERROR_SIGNIN);
-		}
-		mv.addObject("user", new User());
-		return mv;
-	}
-
-	/*@RequestMapping(value = "signin", method = RequestMethod.POST)
-	public String signin(@ModelAttribute User currentUser, Model model, HttpServletRequest request) {
-		
-		if (currentUser != null)
-			for (User user : R.TestEnties.TEST_USERS) {
-				String currentPassword = CodecsUtil.getMD5(currentUser.getPassword());
-				if (user.getEmail().equals(currentUser.getEmail())
-						&& user.getPassword().equals(currentPassword)) {
-					request.getSession().setAttribute(ATR_CURRENT_USER, user);
-					model.addAttribute("userList", userService.getAll());
-					return "home";
-				}
-			}
-		model.addAttribute(R.Exceptions.ATR_ERROR_MESSAGE, R.Exceptions.ERROR_SIGNIN);
-		return "signin";
-	}
-	*/
 	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request)

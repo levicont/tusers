@@ -7,23 +7,27 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/security
 		http://www.springframework.org/schema/security/spring-security.xsd">
 	
-	<http use-expressions="true">
-		<intercept-url pattern="/home" access="isAuthenticated()"/>
+	<http auto-config="true">
+		<intercept-url pattern="/signin" access="permitAll()"/>
+		<intercept-url pattern="/files/**" access="permitAll()"/>
+		<intercept-url pattern="/home" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
 		
-		<form-login		
-			login-page="/signin" 
-			default-target-url="/home" 
-			authentication-failure-url="/signin?error=1"
-			username-parameter="email"
-			password-parameter="password"/>
-			
-		<logout logout-success-url="/signin"/>
+		<form-login login-page='/signin'
+		 default-target-url="/"
+		 always-use-default-target="true"
+		 username-parameter="email"
+		 password-parameter="password"
+		 authentication-failure-url="/signin?error=true"
+		 login-processing-url="/signin"/>
+		
 	</http>
 	
 	
 	<authentication-manager>
-		<authentication-provider>
-			<user-service>
+		
+		<authentication-provider>			
+			<user-service >			
 				<user name="mike" password="1" authorities="ROLE_USER"/>
 			</user-service>
 		</authentication-provider>
