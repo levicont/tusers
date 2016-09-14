@@ -1,10 +1,14 @@
 package com.lvg.tusers.controllers;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,39 +27,37 @@ import com.lvg.tusers.utils.CodecsUtil;
 public class MainController implements R {
 	private final String GREETING_STRING = "Hello everyone!";
 	private final String ATR_CURRENT_USER = "currentUser";
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@RequestMapping("/")
 	public String index(HttpServletRequest request) {
-//		User user = (User) request.getSession().getAttribute(ATR_CURRENT_USER);
-//		if (null == user) {
-//			return "redirect:/signin";
-//		}
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		request.setAttribute(ATR_CURRENT_USER, getUserFromSecurityContext(auth));
+
 		return "home";
 	}
-	
-	
+
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
-	public ModelAndView signin(@RequestParam(name="error", required = false) String error, HttpServletRequest request) {
-		
-		
+	public ModelAndView signin(@RequestParam(name = "error", required = false) String error,
+			HttpServletRequest request) {
+
 		ModelAndView mv = new ModelAndView("signin");
-		if(error != null){
+		if (error != null) {
 			mv.addObject("error", R.Exceptions.ERROR_SIGNIN);
 		}
 		mv.addObject("user", new User());
 		return mv;
 	}
-	
-	
+
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
-	public String logout(HttpServletRequest request)
-	{
-		HttpSession currentSession = request.getSession();
-		currentSession.removeAttribute(ATR_CURRENT_USER);
-		currentSession.invalidate();
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null){    
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }        
 		return "redirect:/";
 	}
 
@@ -64,16 +66,29 @@ public class MainController implements R {
 		model.addAttribute("user", new User());
 		return "registration";
 	}
-	
-	@RequestMapping(value= "registration", method = RequestMethod.POST)
-	public String register(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model, HttpServletRequest request){
+
+	@RequestMapping(value = "registration", method = RequestMethod.POST)
+	public String register(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model,
+			HttpServletRequest request) {
 		HttpSession currentSession = request.getSession();
-		
-		if(bindingResult.hasErrors()){			
+
+		if (bindingResult.hasErrors()) {
 			return "registration";
 		}
-		
+
 		currentSession.setAttribute(ATR_CURRENT_USER, user);
 		return "home";
+	}
+
+	private User getUserFromSecurityContext(Authentication authentication) {
+		String email = authentication.getName();
+
+		User currentUser = null;
+		for (User user : userService.getAll()) {
+			if (user.getEmail().equals(email))
+				return user;
+		}		
+		return currentUser;		
+
 	}
 }

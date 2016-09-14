@@ -20,16 +20,20 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		 password-parameter="password"
 		 authentication-failure-url="/signin?error=true"
 		 login-processing-url="/signin"/>
-		
+		<csrf/>
 	</http>
 	
 	
 	<authentication-manager>
 		
 		<authentication-provider>			
-			<user-service >			
+			<jdbc-user-service data-source-ref="dataSource" 
+				users-by-username-query="SELECT email, password, 'true' FROM tusers.user WHERE email=?"
+				authorities-by-username-query="SELECT email, 'ROLE_USER' FROM tusers.user WHERE email=?"
+				/>
+			<!-- user-service >			
 				<user name="mike" password="1" authorities="ROLE_USER"/>
-			</user-service>
+			</user-service-->
 		</authentication-provider>
 	</authentication-manager>
 	
