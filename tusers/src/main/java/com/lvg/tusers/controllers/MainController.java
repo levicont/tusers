@@ -58,7 +58,7 @@ public class MainController implements R {
         if (auth != null){    
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }        
-		return "redirect:/";
+		return "redirect:/signin";
 	}
 
 	@RequestMapping(value = "registration", method = RequestMethod.GET)

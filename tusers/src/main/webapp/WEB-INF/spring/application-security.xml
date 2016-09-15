@@ -20,6 +20,16 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		 password-parameter="password"
 		 authentication-failure-url="/signin?error=true"
 		 login-processing-url="/signin"/>
+		 <remember-me 
+		 	remember-me-parameter="remember-me"
+		 	
+		 	data-source-ref="dataSource"
+		 	/>
+		 <logout
+		 	delete-cookies="remember-me"
+		 	logout-url="/logout"
+		 	logout-success-url="/"
+		 />
 		<csrf/>
 	</http>
 	

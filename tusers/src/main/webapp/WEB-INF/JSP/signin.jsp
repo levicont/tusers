@@ -38,6 +38,14 @@
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-md-offset-3 col-lg-6">
+							<div class="form-group">
+								<input type="checkbox" name="remember-me" title="Remember"/>
+								<label>Remember</label>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="panel-footer">
