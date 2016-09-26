@@ -33,6 +33,7 @@ public interface R {
 		public String ERROR_INVALID_USR_BIRTHDAY = "User birthday is not valid";
 		public String ERROR_INVALID_USR_EMAIL = "User email is not valid";
 		public String ERROR_INVALID_USR_PASSWORD = "User password is not valid";
+		public String ERROR_INVALID_USR_EMAIL_NOT_UNIQUE = "User with same e-mail already exists";
 		
 		public String ERROR_MSG_404 = "404 PAGE NOT FOUND";
 		public String ERROR_MSG_500 = "500 INTERNAL ERROR";

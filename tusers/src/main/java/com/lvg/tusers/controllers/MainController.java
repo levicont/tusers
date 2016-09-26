@@ -12,6 +12,8 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,10 +26,11 @@ import com.lvg.tusers.services.UserService;
 import com.lvg.tusers.utils.CodecsUtil;
 
 @Controller
-public class MainController implements R {
-	private final String GREETING_STRING = "Hello everyone!";
+public class MainController implements R {	
 	private final String ATR_CURRENT_USER = "currentUser";
-
+	private final String ATR_REGISTRATION_OK = "registrationOK";
+	
+	
 	@Autowired
 	private UserService userService;
 
@@ -70,14 +73,19 @@ public class MainController implements R {
 	@RequestMapping(value = "registration", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model,
 			HttpServletRequest request) {
-		HttpSession currentSession = request.getSession();
-
+		
+		if (!userService.isUserUnique(user)){
+			bindingResult.addError(new FieldError("user","email",Exceptions.ERROR_INVALID_USR_EMAIL_NOT_UNIQUE));			
+		}
+		
 		if (bindingResult.hasErrors()) {
 			return "registration";
 		}
-
-		currentSession.setAttribute(ATR_CURRENT_USER, user);
-		return "home";
+		
+		
+		
+		request.setAttribute(ATR_REGISTRATION_OK, ATR_REGISTRATION_OK);
+		return "signin";
 	}
 
 	private User getUserFromSecurityContext(Authentication authentication) {

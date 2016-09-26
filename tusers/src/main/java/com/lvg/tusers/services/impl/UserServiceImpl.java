@@ -42,6 +42,19 @@ public class UserServiceImpl implements UserService{
 		dao.delete(record);
 		
 	}
+	
+	
+
+	@Override
+	public boolean isUserUnique(User user) {
+		List<User> list = getAll();
+		String checkedEmail = user.getEmail();
+		for(User u : list){
+			if (u.getEmail().equalsIgnoreCase(checkedEmail))
+				return false;
+		}
+		return true;
+	}
 
 	public UserDao getDao() {
 		return dao;
