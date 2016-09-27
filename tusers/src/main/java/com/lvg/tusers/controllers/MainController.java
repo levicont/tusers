@@ -2,18 +2,17 @@ package com.lvg.tusers.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +22,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.lvg.tusers.config.R;
 import com.lvg.tusers.models.User;
 import com.lvg.tusers.services.UserService;
-import com.lvg.tusers.utils.CodecsUtil;
 
 @Controller
 public class MainController implements R {	
@@ -33,6 +31,8 @@ public class MainController implements R {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
 
 	@RequestMapping("/")
 	public String index(HttpServletRequest request) {
@@ -45,12 +45,17 @@ public class MainController implements R {
 
 	@RequestMapping(value = "/signin", method = RequestMethod.GET)
 	public ModelAndView signin(@RequestParam(name = "error", required = false) String error,
-			HttpServletRequest request) {
+			Model model, HttpServletRequest request) {
 
 		ModelAndView mv = new ModelAndView("signin");
 		if (error != null) {
 			mv.addObject("error", R.Exceptions.ERROR_SIGNIN);
 		}
+		
+		if (model.containsAttribute(ATR_REGISTRATION_OK)){
+			mv.addObject(ATR_REGISTRATION_OK, ATR_REGISTRATION_OK);
+		}
+		
 		mv.addObject("user", new User());
 		return mv;
 	}
@@ -82,10 +87,11 @@ public class MainController implements R {
 			return "registration";
 		}
 		
-		
-		
+		String cryptedPass = bcrypt.encode(user.getPassword());		
+		user.setPassword(cryptedPass);
+		userService.add(user);
 		request.setAttribute(ATR_REGISTRATION_OK, ATR_REGISTRATION_OK);
-		return "signin";
+		return "redirect:/signin";
 	}
 
 	private User getUserFromSecurityContext(Authentication authentication) {

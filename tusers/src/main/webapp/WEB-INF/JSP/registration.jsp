@@ -87,11 +87,9 @@
 					<div class="row">
 						<div class="col-md-offset-2 col-lg-7">
 							<div class="form-group">
-								<label for="password">Re enter password</label>
-								<form:password path="password"
-									placeHolder="Enter password again" id="repassword"
-									cssClass="form-control" />
-								<form:errors path="password" cssClass="lvg-error"></form:errors>
+								<label>Re enter password</label>
+								<input type="password" placeHolder="Enter password again" 
+									   id="repassword" class="form-control"/>								
 								<p id="repassword-lvg-error" class="lvg-error"></p>
 							</div>
 						</div>

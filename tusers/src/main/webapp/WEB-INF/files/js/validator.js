@@ -78,7 +78,7 @@ function isValidPassword(Password) {
 }
 
 function isValidRePassword(Password, Repassword) {
-	if (Password == Repassword)
+	if (Password === Repassword)
 		return true;
 	else
 		return false;
