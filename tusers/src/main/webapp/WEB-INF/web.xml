@@ -68,8 +68,8 @@
 	<error-code>500</error-code>
 	<location>/errors/500.html</location>
 </error-page>
-
-<security-constraint>
+<!-- SSL Setup for web application without Spring MVC -->
+<!-- security-constraint>
 	<display-name>ssl</display-name>
 	<web-resource-collection>
 		<web-resource-name>all-pages</web-resource-name>
@@ -79,6 +79,6 @@
 	<user-data-constraint>
 		<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 	</user-data-constraint>
-</security-constraint>
+</security-constraint-->
 
 </web-app>

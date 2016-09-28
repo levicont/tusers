@@ -8,6 +8,12 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/security/spring-security.xsd">
 	
 	<http auto-config="true">
+	
+		<intercept-url pattern="/**" requires-channel="https"/>
+		<port-mappings>
+			<port-mapping http="8080" https="8443"/>
+		</port-mappings>
+		
 		<intercept-url pattern="/signin" access="permitAll()"/>
 		<intercept-url pattern="/files/**" access="permitAll()"/>
 		<intercept-url pattern="/home" access="hasRole('ROLE_USER')"/>
