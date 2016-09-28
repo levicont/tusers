@@ -1,11 +1,35 @@
 package com.lvg.tusers.models;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tusers.gallery")
 public class Gallery {
 	
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id_gallery")
 	private Long id;
-	private List<Image> images;
+	private String name;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_user", nullable=false)
+	private User user;
+	
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=Image.class, mappedBy="gallery")
+	private Set<Image> images = new HashSet<>();
 	
 	
 	
@@ -19,11 +43,30 @@ public class Gallery {
 	
 	
 
-	public List<Image> getImages() {
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	
+	public Set<Image> getImages() {
 		return images;
 	}
 
-	public void setImages(List<Image> images) {
+	public void setImages(Set<Image> images) {
 		this.images = images;
 	}
 

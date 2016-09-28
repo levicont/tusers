@@ -27,6 +27,7 @@ public class UserDaoJpaImpl implements UserDao{
 		return sessionFactory.getCurrentSession();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getAll() {
 		Session session = getSession();

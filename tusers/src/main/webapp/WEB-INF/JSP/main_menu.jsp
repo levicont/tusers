@@ -21,7 +21,12 @@
 		 <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
       
-      <c:if test="${currentUser!=null }">          
+      <c:if test="${currentUser!=null }">
+      <p class="navbar-text navbar-left">
+      	${currentUser.name } ${currentUser.surname } |
+      	${currentUser.birthday } |
+      	${currentUser.email }</p>          
+      
       <ul class="nav navbar-nav navbar-right">        
         <li><a href="logout">Logout <i class="fa fa-sign-out"></i></a></li>                    
       </ul>  

@@ -23,6 +23,7 @@
 							</c:if>
 							<c:if test="${registrationOK != null }">
 								<p class="lvg-valid text-center"><i class="fa fa-chevron-circle-down"></i> Registration success! You can login!</p>
+								
 							</c:if>
 							<p class="lvg-error text-center">${errorMessage }</p>
 							<div class="form-group">

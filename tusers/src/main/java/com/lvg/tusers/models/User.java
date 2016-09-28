@@ -1,13 +1,16 @@
 package com.lvg.tusers.models;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
-import javax.annotation.Nonnegative;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,6 +46,10 @@ public class User {
 	
 	@NotNull(message=R.Exceptions.ERROR_INVALID_USR_PASSWORD)
 	private String password;
+	
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user", targetEntity=Gallery.class)
+	private Set<Gallery> galleries = new HashSet<>();
 	
 	
 	
@@ -81,9 +88,7 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	
+	}	
 	
 	public String getInfo() {
 		return info;
@@ -92,7 +97,13 @@ public class User {
 		this.info = info;
 	}
 	
-	
+		
+	public Set<Gallery> getGalleries() {
+		return galleries;
+	}
+	public void setGalleries(Set<Gallery> galleries) {
+		this.galleries = galleries;
+	}
 	
 	@Override
 	public int hashCode() {

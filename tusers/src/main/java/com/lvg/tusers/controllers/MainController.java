@@ -2,6 +2,7 @@ package com.lvg.tusers.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lvg.tusers.config.R;
 import com.lvg.tusers.models.User;
@@ -51,12 +53,14 @@ public class MainController implements R {
 		if (error != null) {
 			mv.addObject("error", R.Exceptions.ERROR_SIGNIN);
 		}
+		HttpSession session = request.getSession();
 		
-		if (model.containsAttribute(ATR_REGISTRATION_OK)){
-			mv.addObject(ATR_REGISTRATION_OK, ATR_REGISTRATION_OK);
-		}
+		if(session.getAttribute("user")!=null )
+			mv.getModel().put("user", session.getAttribute("user"));
 		
-		mv.addObject("user", new User());
+		if (!mv.getModel().containsKey("user"))
+			mv.addObject("user", new User());
+		
 		return mv;
 	}
 
@@ -77,7 +81,7 @@ public class MainController implements R {
 
 	@RequestMapping(value = "registration", method = RequestMethod.POST)
 	public String register(@Valid @ModelAttribute User user, BindingResult bindingResult, Model model,
-			HttpServletRequest request) {
+			 RedirectAttributes redir, HttpServletRequest request) {
 		
 		if (!userService.isUserUnique(user)){
 			bindingResult.addError(new FieldError("user","email",Exceptions.ERROR_INVALID_USR_EMAIL_NOT_UNIQUE));			
@@ -90,7 +94,8 @@ public class MainController implements R {
 		String cryptedPass = bcrypt.encode(user.getPassword());		
 		user.setPassword(cryptedPass);
 		userService.add(user);
-		request.setAttribute(ATR_REGISTRATION_OK, ATR_REGISTRATION_OK);
+		redir.addFlashAttribute(ATR_REGISTRATION_OK, ATR_REGISTRATION_OK);
+		redir.addFlashAttribute("user", user);
 		return "redirect:/signin";
 	}
 

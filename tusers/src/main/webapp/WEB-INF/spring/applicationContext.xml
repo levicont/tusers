@@ -53,10 +53,22 @@
 	<bean id="userDao" class="com.lvg.tusers.dao.hibernate.UserDaoHibernateImpl">
 		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>	
+	<bean id="galleryDao" class="com.lvg.tusers.dao.hibernate.GalleryDaoHibernateImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>	
+	<bean id="imageDao" class="com.lvg.tusers.dao.hibernate.ImageDaoHibernateImpl">
+		<property name="sessionFactory" ref="sessionFactory"/>
+	</bean>	
 	
 	<!-- SERVICES -->
 	<bean id="userService" class="com.lvg.tusers.services.impl.UserServiceImpl">
 		<property name="dao" ref="userDao"/>
+	</bean>
+	<bean id="galleryService" class="com.lvg.tusers.services.impl.GalleryServiceImpl">
+		<property name="dao" ref="galleryDao"/>
+	</bean>
+	<bean id="imageService" class="com.lvg.tusers.services.impl.ImageServiceImpl">
+		<property name="dao" ref="imageDao"/>
 	</bean>
 	
 	

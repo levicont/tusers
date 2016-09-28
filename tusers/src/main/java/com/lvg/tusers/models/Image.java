@@ -1,19 +1,52 @@
 package com.lvg.tusers.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="tusers.image")
 public class Image {
 	
+	@Id 
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="id_image")
 	private Long id;
-	private java.awt.Image source;
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="id_gallery", nullable=false)
+	private Gallery gallery;
+	
+	@Column(name="src")
+	private byte[] source;
+	
+	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public java.awt.Image getSource() {
+	
+	
+	public Gallery getGallery() {
+		return gallery;
+	}
+	public void setGallery(Gallery gallery) {
+		this.gallery = gallery;
+	}
+	
+	
+	public byte[] getSource() {
 		return source;
 	}
-	public void setSource(java.awt.Image source) {
+	public void setSource(byte[] source) {
 		this.source = source;
 	}
 	@Override

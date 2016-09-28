@@ -2,52 +2,48 @@ package com.lvg.tusers.dao.hibernate;
 
 import java.util.List;
 
-
-
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lvg.tusers.dao.UserDao;
-import com.lvg.tusers.models.User;
+import com.lvg.tusers.dao.ImageDao;
+import com.lvg.tusers.models.Image;
 
 @Repository
 @Transactional(readOnly = true)
-public class UserDaoHibernateImpl extends GenericDaoHibernate implements UserDao{
+public class ImageDaoHibernateImpl extends GenericDaoHibernate implements ImageDao {
 
 	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
-	public List<User> getAll() {		
-		return getSession().createQuery("from User").list();
-	}
-
-	@Override
-	public User get(long id) {
-		
-		return (User)getSession().get(User.class, id);
+	public List<Image> getAll() {
+		return getSession().createQuery("from Image").list();
 	}
 
 	@Override
 	@Transactional
-	public void add(User record) {
+	public Image get(long id) {
+		return (Image)getSession().get(Image.class, id);
+	}
+
+	@Override
+	@Transactional
+	public void add(Image record) {
 		getSession().save(record);
-		
+
 	}
 
 	@Override
 	@Transactional
-	public void update(User record) {
+	public void update(Image record) {
 		getSession().update(record);
-			
+
 	}
 
 	@Override
 	@Transactional
-	public void delete(User record) {
+	public void delete(Image record) {
 		getSession().delete(record);
-		
+
 	}
-	
-	
-	
+
 }
