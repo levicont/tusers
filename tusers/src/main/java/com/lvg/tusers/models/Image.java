@@ -8,14 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="tusers.image")
 public class Image {
 	
-	@Id 
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="tusers.image_id_seq")
+    @SequenceGenerator(name="tusers.image_id_seq", sequenceName="tusers.image_id_seq", allocationSize=1)    
 	@Column(name="id_image")
 	private Long id;
 	

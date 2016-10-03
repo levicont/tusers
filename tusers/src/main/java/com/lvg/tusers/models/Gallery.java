@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +20,8 @@ import javax.persistence.Table;
 public class Gallery {
 	
 	@Id 
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="tusers.gallery_id_seq")
+    @SequenceGenerator(name="tusers.gallery_id_seq", sequenceName="tusers.gallery_id_seq", allocationSize=1)    
 	@Column(name="id_gallery")
 	private Long id;
 	private String name;

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,7 +27,8 @@ public class User {
 	
 	
 	@Id 
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="tusers.user_id_seq")
+    @SequenceGenerator(name="tusers.user_id_seq", sequenceName="tusers.user_id_seq", allocationSize=1)    
 	@Column(name="id_user")
 	private Long id;
 	
