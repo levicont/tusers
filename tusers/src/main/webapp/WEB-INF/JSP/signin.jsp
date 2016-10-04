@@ -19,10 +19,10 @@
 					<div class="row">
 						<div class="col-md-offset-3 col-lg-6">
 							<c:if test="${error != null}">
-								<p class="lvg-error text-center">Error:${error }</p>
+								<p class="lvg-error text-center"><i class="fa fa-times"></i> ${error }</p>
 							</c:if>
 							<c:if test="${registrationOK != null }">
-								<p class="lvg-valid text-center"><i class="fa fa-chevron-circle-down"></i> Registration success! You can login!</p>
+								<p class="lvg-valid text-center"><i class="fa fa-check-circle"></i> Registration success! You can login!</p>
 								
 							</c:if>
 							<p class="lvg-error text-center">${errorMessage }</p>

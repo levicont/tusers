@@ -37,9 +37,9 @@ drop sequence if exists tusers.user_id_seq;
 drop sequence if exists tusers.image_id_seq;
 drop sequence if exists tusers.gallery_id_seq;
 
-create sequence if not exists tusers.user_id_seq start 1;
-create sequence if not exists tusers.image_id_seq start 1;
-create sequence if not exists tusers.gallery_id_seq start 1;
+create sequence tusers.user_id_seq start 1;
+create sequence tusers.image_id_seq start 1;
+create sequence tusers.gallery_id_seq start 1;
 
 alter sequence tusers.user_id_seq owner to tusers;
 alter sequence tusers.image_id_seq owner to tusers;
