@@ -7,6 +7,10 @@ import java.util.List;
 import com.lvg.tusers.models.User;
 
 public interface R {
+	public interface GalleryConfig{
+		public String DEFAULT_GALLERY_NAME = "Default Gallery";
+	}
+	
 	public interface TestEnties{
 		List<User> TEST_USERS = new ArrayList<User>()		
 		{{

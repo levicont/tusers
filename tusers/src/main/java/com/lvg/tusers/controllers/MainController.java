@@ -22,7 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lvg.tusers.config.R;
+import com.lvg.tusers.models.Gallery;
 import com.lvg.tusers.models.User;
+import com.lvg.tusers.services.GalleryService;
 import com.lvg.tusers.services.UserService;
 
 @Controller
@@ -33,6 +35,8 @@ public class MainController implements R {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private GalleryService galleryService;
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
 
@@ -94,6 +98,10 @@ public class MainController implements R {
 		String cryptedPass = bcrypt.encode(user.getPassword());		
 		user.setPassword(cryptedPass);
 		userService.add(user);
+		Gallery gallery = new Gallery();
+		gallery.setName(GalleryConfig.DEFAULT_GALLERY_NAME);
+		gallery.setUser(user);
+		galleryService.add(gallery);
 		redir.addFlashAttribute(ATR_REGISTRATION_OK, ATR_REGISTRATION_OK);
 		redir.addFlashAttribute("user", user);
 		return "redirect:/signin";

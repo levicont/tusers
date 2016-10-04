@@ -9,7 +9,14 @@
 		<div class="col-lg-6">
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<p class="h4">Gallery</p>
+					<c:if test="${currentUser.galleries != null }">
+						<p class="h4">Gallery</p>
+						<!-- Must fix Lazy Init Exception 
+						<c:forEach var="gallery" items="${currentUser.galleries}">
+							<p>${gallery.name}</p>
+						</c:forEach>
+						-->
+					</c:if>
 				</div>
 			</div>
 
