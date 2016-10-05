@@ -36,10 +36,10 @@
 							<div class="col-lg-2 text-left">
 								<p id="file-count">0</p>
 							</div>
-							<div class="col-lg-2">
+							<div class="col-lg-3">
 								<p>Total size:</p>
 							</div>
-							<div class="col-lg-2 text-left">
+							<div class="col-lg-1 text-left">
 								<p id="file-size">0</p>
 							</div>
 							<div class="col-lg-3">
@@ -53,11 +53,21 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="lvg-img-icon col-lg-2">
-								<img alt="Image" src="">
+							<div class="col-lg-2">
+								<img class="lvg-img-icon" alt="Image" src="">
 							</div>
-							<div class="lvg-img-name col-lg-6">
-								<p class="text-left">Image name</p>
+							<div class="col-lg-6">
+								<p class="lvg-img-name text-left">Image name</p>
+							</div>
+							<div class="col-lg-4">
+								<div class="progress">
+									<div 	class="progress-bar progress-bar-success" 
+  											role="progressbar" 
+  											aria-valuenow="1"
+  										 	aria-valuemin="0" 
+  										 	aria-valuemax="100" 
+  										 	style="width:10%"></div>  									
+								</div>
 							</div>
 						</div>
 					</div>

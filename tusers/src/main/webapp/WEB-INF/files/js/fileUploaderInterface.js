@@ -41,7 +41,8 @@ $(document).ready(function() {
     function updateProgress(bar, value) {
         var width = bar.width();
         var bgrValue = -width + (value * (width / 100));
-        bar.attr('rel', value).css('background-position', bgrValue+'px center').text(value+'%');
+
+        bar.attr('aria-valuenow', value).css('width', bgrValue+'%');
     }
 
 
@@ -55,7 +56,7 @@ $(document).ready(function() {
             
             // Отсеиваем не картинки
             if (!file.type.match(imageType)) {
-                log('Файл отсеян: `'+file.name+'` (тип '+file.type+')');
+                //log('Файл отсеян: `'+file.name+'` (тип '+file.type+')');
                 return true;
             }
             
@@ -63,11 +64,36 @@ $(document).ready(function() {
             
             // Создаем элемент li и помещаем в него название, миниатюру и progress bar,
             // а также создаем ему свойство file, куда помещаем объект File (при загрузке понадобится)
-            var li = $('<li/>').appendTo(imgList);
-            $('<div/>').text(file.name).appendTo(li);
-            var img = $('<img/>').appendTo(li);
-            $('<div/>').addClass('progress').attr('rel', '0').text('0%').appendTo(li);
-            li.get(0).file = file;
+            var row = $('<div/>').appendTo(imgList);
+            row.addClass('row');
+
+            var colImg = $('<div/>').appendTo(row);
+            colImg.addClass('col-lg-2');
+            var img = $('<img/>').appendTo(colImg);
+            img.addClass('lvg-img-icon');
+            
+            var colImgName = $('<div/>').appendTo(row);
+            colImgName.addClass('col-lg-6');
+            var imgName = $('<p/>').appendTo(colImgName);
+            imgName.addClass('lvg-img-name').text(file.name);
+
+            var colImgProgress = $('<div/>').appendTo(row);
+            colImgProgress.addClass('col-lg-4');
+            var imgProgress = $('<div/>').appendTo(colImgProgress);
+            imgProgress.addClass('progress');
+            var progressBar = $('<div/>').addClass('progress-bar').addClass('progress-bar-success').appendTo(imgProgress);
+            progressBar.attr('role','progress').attr('aria-valuenow','0').attr('aria-valuemin','0').attr('aria-valuemax','100');
+            progressBar.css('width','0%');
+
+            row.get(0).file = file;
+
+
+
+            //var li = $('<li/>').appendTo(imgList);
+            //$('<div/>').text(file.name).appendTo(li);
+            //var img = $('<img/>').appendTo(li);
+            //$('<div/>').addClass('progress').attr('rel', '0').text('0%').appendTo(li);
+            //li.get(0).file = file;
 
             // Создаем объект FileReader и по завершении чтения файла, отображаем миниатюру и обновляем
             // инфу обо всех файлах
@@ -76,7 +102,7 @@ $(document).ready(function() {
                 return function(e) {
                     aImg.attr('src', e.target.result);
                     aImg.attr('width', 150);
-                    log('Картинка добавлена: `'+file.name + '` (' +Math.round(file.size / 1024) + ' Кб)');
+                    //log('Картинка добавлена: `'+file.name + '` (' +Math.round(file.size / 1024) + ' Кб)');
                     imgCount++;
                     imgSize += file.size;
                     updateInfo();
@@ -96,7 +122,7 @@ $(document).ready(function() {
     //  содержащий выбранные файлы)
     fileInput.bind({
         change: function() {
-            log(this.files.length+" файл(ов) выбрано через поле выбора");
+            //log(this.files.length+" файл(ов) выбрано через поле выбора");
             displayFiles(this.files);
         }
     });
@@ -136,8 +162,8 @@ $(document).ready(function() {
         imgList.find('li').each(function() {
 
             var uploadItem = this;
-            var pBar = $(uploadItem).find('.progress');
-            log('Начинаем загрузку `'+uploadItem.file.name+'`...');
+            var pBar = $(uploadItem).find('.progress-bar');
+            //log('Начинаем загрузку `'+uploadItem.file.name+'`...');
 
             new uploaderObject({
                 file:       uploadItem.file,
@@ -151,9 +177,9 @@ $(document).ready(function() {
                 oncomplete: function(done, data) {
                     if(done) {
                         updateProgress(pBar, 100);
-                        log('Файл `'+uploadItem.file.name+'` загружен, полученные данные:<br/>*****<br/>'+data+'<br/>*****');
+                        //log('Файл `'+uploadItem.file.name+'` загружен, полученные данные:<br/>*****<br/>'+data+'<br/>*****');
                     } else {
-                        log('Ошибка при загрузке файла `'+uploadItem.file.name+'`:<br/>'+this.lastError.text);
+                        //log('Ошибка при загрузке файла `'+uploadItem.file.name+'`:<br/>'+this.lastError.text);
                     }
                 }
             });
@@ -163,7 +189,7 @@ $(document).ready(function() {
     
     // Проверка поддержки File API в браузере
     if(window.FileReader == null) {
-        log('Ваш браузер не поддерживает File API!');
+        //log('Ваш браузер не поддерживает File API!');
     }
     
     
