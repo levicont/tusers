@@ -11,11 +11,10 @@
 				<div class="col-lg-12 text-center">
 					<c:if test="${currentUser.galleries != null }">
 						<p class="h4">Gallery</p>
-						<!-- Must fix Lazy Init Exception 
+						<!-- Must fix Lazy Init Exception -->
 						<c:forEach var="gallery" items="${currentUser.galleries}">
 							<p>${gallery.name}</p>
-						</c:forEach>
-						-->
+						</c:forEach>						
 					</c:if>
 				</div>
 			</div>

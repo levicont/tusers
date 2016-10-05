@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -101,7 +102,7 @@ public class MainController implements R {
 		Gallery gallery = new Gallery();
 		gallery.setName(GalleryConfig.DEFAULT_GALLERY_NAME);
 		gallery.setUser(user);
-		galleryService.add(gallery);
+		galleryService.add(gallery);		
 		redir.addFlashAttribute(ATR_REGISTRATION_OK, ATR_REGISTRATION_OK);
 		redir.addFlashAttribute("user", user);
 		return "redirect:/signin";
