@@ -14,7 +14,7 @@
 						<!-- Must fix Lazy Init Exception -->
 						<c:forEach var="gallery" items="${currentUser.galleries}">
 							<p>${gallery.name}</p>
-						</c:forEach>						
+						</c:forEach>
 					</c:if>
 				</div>
 			</div>
@@ -28,23 +28,43 @@
 						<p class="h4">Upload images</p>
 					</div>
 
-					<div class="panel-body">
+					<div id="file-list-container" class="panel-body">
 						<div class="row">
-							<div class="col-md-offset-2 col-lg-7">
+							<div class="col-lg-3">
+								<p>Selected files:</p>
+							</div>
+							<div class="col-lg-2 text-left">
+								<p id="file-count">0</p>
+							</div>
+							<div class="col-lg-2">
+								<p>Total size:</p>
+							</div>
+							<div class="col-lg-2 text-left">
+								<p id="file-size">0</p>
+							</div>
+							<div class="col-lg-3">
 								<div class="form-group">
-									<label class="btn btn-default btn-file"> Browse 
-										<input 	type="file" multiple 
-												accept="image/jpeg, image/jpg, image/png"
-												style="display: none;">
+									<label class="btn btn-default btn-file"> Browse <input
+										id="file-field" type="file" multiple
+										accept="image/jpeg, image/jpg, image/png"
+										style="display: none;">
 									</label>
 								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="lvg-img-icon col-lg-2">
+								<img alt="Image" src="">
+							</div>
+							<div class="lvg-img-name col-lg-6">
+								<p class="text-left">Image name</p>
 							</div>
 						</div>
 					</div>
 					<div class="panel-footer">
 						<div class="row">
-							<div class="col-md-offset-2 col-lg-3">
-								<input class="btn btn-primary" type="submit" value="Upload">
+							<div class="col-lg-offset-9 col-lg-3">
+								<input id="upload-all" class="btn btn-primary" type="button" value="Upload">
 							</div>
 						</div>
 					</div>

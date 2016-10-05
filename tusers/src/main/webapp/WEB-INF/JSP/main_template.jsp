@@ -19,6 +19,9 @@
 	var="bootStrapDateTimePickerJS" />
 <spring:url value="/files/js/validator.js" var="validatorJS"/>
 
+<spring:url value="/files/js/fileUploaderInterface.js" var="fileUploaderInterface"/>
+<spring:url value="/files/js/uploaderObject.js" var="uploaderObject"/>
+
 <!-- CSS links -->
 <spring:url value="/files/css/main.css" var="mainCSS" />
 <spring:url
@@ -36,7 +39,9 @@
 <script src="${momentWithLocalesJS }"></script>
 <script src="${bootstrapStrapJS }"></script>
 <script src="${bootStrapDateTimePickerJS }"></script>
-<script src="${validatorJS}"> </script>   
+<script src="${validatorJS}"> </script> 
+<script src="${fileUploaderInterface }"></script>
+<script src="${uploaderObject}"> </script>   
 
 <link rel="stylesheet" href="${bootStrapCSS }" type="text/css">
 <link rel="stylesheet" href="${bootStrapDateTimePickerCSS }" type="text/css">
