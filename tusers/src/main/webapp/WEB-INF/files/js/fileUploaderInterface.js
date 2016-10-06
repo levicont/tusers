@@ -14,6 +14,7 @@ $(document).ready(function() {
     // ul-список, содержащий миниатюрки выбранных файлов
     var imgList = $('#file-list-container');
     
+    var errorField = $('#upload-error');
     // Контейнер, куда можно помещать файлы методом drag and drop
     //var dropBox = $('#img-container');
 
@@ -31,18 +32,21 @@ $(document).ready(function() {
     }
     */
 
+    function logError(str){
+        $('<i/>').addClass('fa').addClass('fa-times').appendTo(errorField);
+        errorField.text(str);
+    }
+
     // Вывод инфы о выбранных
     function updateInfo() {
-        countInfo.text( (imgCount == 0) ? 'Изображений не выбрано' : ('Изображений выбрано: '+imgCount));
-        sizeInfo.text(Math.round(imgSize / 1024));
+        countInfo.text(imgCount);
+        sizeInfo.text(Math.round(imgSize / 1024)+"Kb");
     }
 
     // Обновление progress bar'а
     function updateProgress(bar, value) {
-        var width = bar.width();
-        var bgrValue = -width + (value * (width / 100));
-
-        bar.attr('aria-valuenow', value).css('width', bgrValue+'%');
+        var width = bar.attr('aria-valuemax');       
+        bar.attr('aria-valuenow', value).attr('style', 'width:'+value+'%');
     }
 
 
@@ -55,8 +59,7 @@ $(document).ready(function() {
         $.each(files, function(i, file) {
             
             // Отсеиваем не картинки
-            if (!file.type.match(imageType)) {
-                //log('Файл отсеян: `'+file.name+'` (тип '+file.type+')');
+            if (!file.type.match(imageType)) {               
                 return true;
             }
             
@@ -65,7 +68,7 @@ $(document).ready(function() {
             // Создаем элемент li и помещаем в него название, миниатюру и progress bar,
             // а также создаем ему свойство file, куда помещаем объект File (при загрузке понадобится)
             var row = $('<div/>').appendTo(imgList);
-            row.addClass('row');
+            row.addClass('row').addClass('img-item');
 
             var colImg = $('<div/>').appendTo(row);
             colImg.addClass('col-lg-2');
@@ -86,14 +89,7 @@ $(document).ready(function() {
             progressBar.css('width','0%');
 
             row.get(0).file = file;
-
-
-
-            //var li = $('<li/>').appendTo(imgList);
-            //$('<div/>').text(file.name).appendTo(li);
-            //var img = $('<img/>').appendTo(li);
-            //$('<div/>').addClass('progress').attr('rel', '0').text('0%').appendTo(li);
-            //li.get(0).file = file;
+           
 
             // Создаем объект FileReader и по завершении чтения файла, отображаем миниатюру и обновляем
             // инфу обо всех файлах
@@ -101,8 +97,7 @@ $(document).ready(function() {
             reader.onload = (function(aImg) {
                 return function(e) {
                     aImg.attr('src', e.target.result);
-                    aImg.attr('width', 150);
-                    //log('Картинка добавлена: `'+file.name + '` (' +Math.round(file.size / 1024) + ' Кб)');
+                    aImg.attr('width', 80);                   
                     imgCount++;
                     imgSize += file.size;
                     updateInfo();
@@ -121,8 +116,7 @@ $(document).ready(function() {
     // (при вызове обработчика в свойстве files элемента input содержится объект FileList,
     //  содержащий выбранные файлы)
     fileInput.bind({
-        change: function() {
-            //log(this.files.length+" файл(ов) выбрано через поле выбора");
+        change: function() {          
             displayFiles(this.files);
         }
     });
@@ -158,28 +152,28 @@ $(document).ready(function() {
     // экземпляры объекта uploaderObject. По мере загрузки, обновляем показания progress bar,
     // через обработчик onprogress, по завершении выводим информацию
     $("#upload-all").click(function() {
-        
-        imgList.find('li').each(function() {
+        var csrfParamName = $('#_csrf').attr('name');
+        var csrfParamValue = $('#_csrf').attr('value');
+
+
+        imgList.find('.img-item').each(function() {
 
             var uploadItem = this;
             var pBar = $(uploadItem).find('.progress-bar');
-            //log('Начинаем загрузку `'+uploadItem.file.name+'`...');
-
             new uploaderObject({
                 file:       uploadItem.file,
-                url:        './serverLogic.php',
+                url:        './upload',
                 fieldName:  'my-pic',
-
+                csrfName:   csrfParamName,
+                csrfValue:   csrfParamValue,
                 onprogress: function(percents) {
                     updateProgress(pBar, percents);
-                },
-                
+                },                
                 oncomplete: function(done, data) {
                     if(done) {
-                        updateProgress(pBar, 100);
-                        //log('Файл `'+uploadItem.file.name+'` загружен, полученные данные:<br/>*****<br/>'+data+'<br/>*****');
+                        updateProgress(pBar, 100);                       
                     } else {
-                        //log('Ошибка при загрузке файла `'+uploadItem.file.name+'`:<br/>'+this.lastError.text);
+                        logError('Error during uploading file `'+uploadItem.file.name+'`:<br/>'+this.lastError.text);
                     }
                 }
             });
@@ -189,7 +183,7 @@ $(document).ready(function() {
     
     // Проверка поддержки File API в браузере
     if(window.FileReader == null) {
-        //log('Ваш браузер не поддерживает File API!');
+        logError('Your web browser not support File API!');
     }
     
     

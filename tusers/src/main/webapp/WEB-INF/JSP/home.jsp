@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <div class="container">
 	<div class="row">
@@ -22,13 +22,19 @@
 		</div>
 		<div class="col-lg-6">
 			<!-- FORM Container -->
-			<form action="upload" enctype="multipart/form-data" method="post">
+			<form:form action="upload" enctype="multipart/form-data" method="post">
+				<input id="_csrf" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						<p class="h4">Upload images</p>
 					</div>
 
 					<div id="file-list-container" class="panel-body">
+						<div class="row">
+							<div class="col-lg-12">
+								<p id="upload-error" class="lvg-error"></p>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-lg-3">
 								<p>Selected files:</p>
@@ -51,25 +57,7 @@
 									</label>
 								</div>
 							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-2">
-								<img class="lvg-img-icon" alt="Image" src="">
-							</div>
-							<div class="col-lg-6">
-								<p class="lvg-img-name text-left">Image name</p>
-							</div>
-							<div class="col-lg-4">
-								<div class="progress">
-									<div 	class="progress-bar progress-bar-success" 
-  											role="progressbar" 
-  											aria-valuenow="1"
-  										 	aria-valuemin="0" 
-  										 	aria-valuemax="100" 
-  										 	style="width:10%"></div>  									
-								</div>
-							</div>
-						</div>
+						</div>						
 					</div>
 					<div class="panel-footer">
 						<div class="row">
@@ -79,7 +67,7 @@
 						</div>
 					</div>
 				</div>
-			</form>
+			</form:form>
 			<!-- END FORM Container -->
 		</div>
 	</div>

@@ -34,8 +34,9 @@ var uploaderObject = function(params) {
         self.xhr.upload.addEventListener("progress", function(e) {
             if (e.lengthComputable) {
                 self.progress = (e.loaded * 100) / e.total;
+                var isCalled = false;
                 if(params.onprogress instanceof Function) {
-                    params.onprogress.call(self, Math.round(self.progress));
+                    params.onprogress.call(self, Math.round(self.progress));                   
                 }
             }
         }, false);
@@ -83,7 +84,7 @@ var uploaderObject = function(params) {
         var boundary = "xxxxxxxxx";
         self.xhr.setRequestHeader("Content-Type", "multipart/form-data, boundary="+boundary);
         self.xhr.setRequestHeader("Cache-Control", "no-cache");
-
+        self.xhr.setRequestHeader("X-CSRF-TOKEN", params.csrfValue);
         var body = "--" + boundary + "\r\n";
         body += "Content-Disposition: form-data; name='"+(params.fieldName || 'file')+"'; filename='" + params.file.name + "'\r\n";
         body += "Content-Type: application/octet-stream\r\n\r\n";
