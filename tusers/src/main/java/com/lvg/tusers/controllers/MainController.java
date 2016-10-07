@@ -107,11 +107,11 @@ public class MainController implements R {
 		return "redirect:/signin";
 	}
 	
-	@RequestMapping(value="upload", method = RequestMethod.POST)
-	private String uploadImg(Model model){
-		
-		return "home";
-	}
+//	@RequestMapping(value="upload", method = RequestMethod.POST)
+//	private String uploadImg(Model model){
+//		
+//		return "home";
+//	}
 
 	private User getUserFromSecurityContext(Authentication authentication) {
 		String email = authentication.getName();

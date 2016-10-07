@@ -50,6 +50,22 @@ html, body, #content {
 	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);    
 }
 
+.lvg-img-icon{
+	border: 1px solid #50C878;
+	margin:5px;
+	height:60px;
+	width:80px;
+}
+
+.lvg-img-name{
+	line-height: 90px;
+}
+
+.progress{
+	height:10px;
+	margin-top:45px;
+}
+
 #footer {
 	font-size: 12pt;
     height: 60px;
@@ -86,34 +102,5 @@ html, body, #content {
 	color: #39d455;
 }
 
-@media print {
-	div#header, div#footer { display: none; }
-	
-	.panel-success, .tcreator-print-hide{ display: none;}
-	.panel-info{ 
-		border:none;
-		page-break-after: always;
-	}
-	.panel-heading{
-		font-weight: 700;
-		border: 1px solid #000;
-		border-color: black;
-		border-radius:none;	
-		padding:5px 10px 5px;
-		margin:0;
-	}
-	
-	.h3 {
-		font-size: 15pt;
-	}
-	.h4{
-		font-size: 12pt;
-	}
-	
-	dl{
-		page-break-inside: avoid;
-	}
-	body{
-		font-size: 10pt;
-	}
+
 }

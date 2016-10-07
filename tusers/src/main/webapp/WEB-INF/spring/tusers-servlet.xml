@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:p="http://www.springframework.org/schema/p"
-    xmlns:mvc="http://www.springframework.org/schema/mvc"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd">
-  	
-  
-	<mvc:annotation-driven/>
-	<context:component-scan base-package="com.lvg.tusers.dao.hibernate,com.lvg.tusers.controllers,com.lvg.tusers.models"/>	
-  
-    <!-- ... -->
-   	
-   		
-	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
+
+
+	<mvc:annotation-driven />
+	<context:component-scan
+		base-package="com.lvg.tusers.dao.hibernate,com.lvg.tusers.controllers,com.lvg.tusers.models" />
+
+	<!-- ... -->
+
+
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
 			<list>
@@ -27,13 +26,14 @@
 			</list>
 		</property>
 	</bean>
-	<mvc:resources location="/WEB-INF/files/" mapping="/files/**"/>  	
+	<mvc:resources location="/WEB-INF/files/" mapping="/files/**" />
 	<bean class="com.lvg.tusers.exceptions.TUsersExceptionResolver">
-	    <property name="exceptionMappings">
-	        <map>
-	            <entry key="com.lvg.tusers.exceptions.TUsersException" value="error"/>
-	        </map>	        
-	    </property>
-	    <property name="defaultErrorView" value="deferror"></property>
-	</bean>
+		<property name="exceptionMappings">
+			<map>
+				<entry key="com.lvg.tusers.exceptions.TUsersException" value="error" />
+			</map>
+		</property>
+		<property name="defaultErrorView" value="deferror"></property>
+	</bean>	
+
 </beans>
