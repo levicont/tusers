@@ -7,11 +7,16 @@ import java.util.List;
 import com.lvg.tusers.models.User;
 
 public interface R {
+	public interface HomePageConfig{
+		public String ATR_UPLOAD_FILE_FORM = "uploadFileForm";
+	}
+	
 	public interface GalleryConfig{
 		public String DEFAULT_GALLERY_NAME = "Default Gallery";
 	}
 	
 	public interface TestEnties{
+		@SuppressWarnings("serial")
 		List<User> TEST_USERS = new ArrayList<User>()		
 		{{
 			User u1 = new User();

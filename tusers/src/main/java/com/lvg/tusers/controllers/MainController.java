@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lvg.tusers.config.R;
 import com.lvg.tusers.models.Gallery;
+import com.lvg.tusers.models.UploadFileForm;
 import com.lvg.tusers.models.User;
 import com.lvg.tusers.services.GalleryService;
 import com.lvg.tusers.services.UserService;
@@ -41,11 +42,11 @@ public class MainController implements R {
 	private BCryptPasswordEncoder bcrypt;
 
 	@RequestMapping("/")
-	public String index(HttpServletRequest request) {
+	public String index(HttpServletRequest request, Model model) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		request.setAttribute(ATR_CURRENT_USER, getUserFromSecurityContext(auth));
-
+		model.addAttribute(HomePageConfig.ATR_UPLOAD_FILE_FORM, new UploadFileForm());
 		return "home";
 	}
 

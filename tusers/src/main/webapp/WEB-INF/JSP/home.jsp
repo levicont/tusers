@@ -28,7 +28,7 @@
 		</div>
 		<div class="col-lg-6">
 			<!-- FORM Container -->
-			<form:form action="upload" enctype="multipart/form-data"
+			<form:form modelAttribute="uploadFileForm" action="upload" enctype="multipart/form-data"
 				method="post">
 				<input id="_csrf" type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}">
@@ -58,10 +58,8 @@
 							</div>
 							<div class="col-lg-3 text-right">
 								<div class="form-group">
-									<label class="btn btn-default btn-file"> Browse <input
-										id="file-field" type="file" multiple
-										accept="image/jpeg, image/jpg, image/png"
-										style="display: none;">
+									<label class="btn btn-default btn-file"> Browse <form:input
+										id="file-field" path="file" type="file" cssStyle="display: none;"/>
 									</label>
 								</div>
 							</div>

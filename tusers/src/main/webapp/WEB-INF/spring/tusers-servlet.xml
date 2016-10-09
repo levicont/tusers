@@ -34,6 +34,8 @@
 			</map>
 		</property>
 		<property name="defaultErrorView" value="deferror"></property>
+	</bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">		
 	</bean>	
 
 </beans>
