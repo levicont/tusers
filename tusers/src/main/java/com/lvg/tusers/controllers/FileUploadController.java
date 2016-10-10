@@ -1,45 +1,46 @@
 package com.lvg.tusers.controllers;
 
-import java.io.IOException;
+import java.util.Iterator;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-
-import com.lvg.tusers.models.UploadFileForm;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class FileUploadController {
 
 	@RequestMapping(value = "upload", method = RequestMethod.POST)
-	private String uploadFile(Model model, @ModelAttribute("uploadFileForm") UploadFileForm uploadFileForm)
+	private ModelAndView uploadFile(MultipartHttpServletRequest request, HttpServletResponse response)
 			throws Exception {
-		if(uploadFileForm == null){
-			System.out.println("UPLOAD_FILE_FORM IS NULL ");
-			return "home";
+		Iterator<String> iterator = request.getFileNames();
+		MultipartFile file = null;
+		ModelAndView mv = new ModelAndView("home");
+		while(iterator.hasNext()){
+			file = request.getFile(iterator.next());
 		}
 		
-		MultipartFile file = uploadFileForm.getFile();
 		
 		if(file == null){
 			System.out.println("FILE IS NULL ");
-			return "home";
+			return mv;
 		}
 		if (!file.isEmpty()) {
 			System.out.println("FILE HAS UPLOADED : " + file.getOriginalFilename());
-//			byte[] mainImageSrc = file.getBytes();
-//			model.addAttribute("mainImage", mainImageSrc);
-
+			byte[] mainImageSrc = file.getBytes();
+			
+			mv.addObject("mainImage", mainImageSrc);
+			mv.addObject("uploadStatus", "Upload OK!");
+			
 		}else{
 			System.out.println("FILE HAS NOT UPLOADED : ");
 		}
 
-		return "redirect:/";
+		return mv;
 	}
 }

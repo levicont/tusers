@@ -19,7 +19,13 @@
 				</div>
 			</div>
 			<div class="row">
+				<div class="col-lg-12">
+					<p>${uploadStatus }</p>
+				</div>
+			</div>
+			<div class="row">
 				<div class="col-lg-12 text-center">
+					
 					<img alt="Main Image" width="400" style="border: 1px solid #50C878"
 						src="${mainImage }">
 				</div>
@@ -28,7 +34,7 @@
 		</div>
 		<div class="col-lg-6">
 			<!-- FORM Container -->
-			<form:form modelAttribute="uploadFileForm" action="upload" enctype="multipart/form-data"
+			<form action="upload" enctype="multipart/form-data"
 				method="post">
 				<input id="_csrf" type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}">
@@ -58,8 +64,8 @@
 							</div>
 							<div class="col-lg-3 text-right">
 								<div class="form-group">
-									<label class="btn btn-default btn-file"> Browse <form:input
-										id="file-field" path="file" type="file" cssStyle="display: none;"/>
+									<label class="btn btn-default btn-file"> Browse <input
+										id="file-field" type="file" style="display: none;"/>
 									</label>
 								</div>
 							</div>
@@ -74,7 +80,7 @@
 						</div>
 					</div>
 				</div>
-			</form:form>
+			</form>
 			<!-- END FORM Container -->
 		</div>
 	</div>

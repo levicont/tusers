@@ -46,7 +46,6 @@ public class MainController implements R {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		request.setAttribute(ATR_CURRENT_USER, getUserFromSecurityContext(auth));
-		model.addAttribute(HomePageConfig.ATR_UPLOAD_FILE_FORM, new UploadFileForm());
 		return "home";
 	}
 
