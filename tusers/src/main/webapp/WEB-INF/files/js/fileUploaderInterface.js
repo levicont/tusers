@@ -13,6 +13,9 @@ $(document).ready(function() {
     
     // ul-список, содержащий миниатюрки выбранных файлов
     var imgList = $('#file-list-container');
+
+    //
+    var mainImage = $('#main-image');
     
     var errorField = $('#upload-error');
     // Контейнер, куда можно помещать файлы методом drag and drop
@@ -159,7 +162,7 @@ $(document).ready(function() {
         imgList.find('.img-item').each(function() {
 
             var uploadItem = this;
-            var pBar = $(uploadItem).find('.progress-bar');
+            var pBar = $(uploadItem).find('.progress-bar');           
             new uploaderObject({
                 file:       uploadItem.file,
                 url:        './upload',
@@ -170,8 +173,20 @@ $(document).ready(function() {
                     updateProgress(pBar, percents);
                 },                
                 oncomplete: function(done, data) {
-                    if(done) {
-                        updateProgress(pBar, 100);                       
+                    if(done) {      
+                       
+                        updateProgress(pBar, 100);
+                        mainImage.attr('alt', data.responseText);
+                        var tmpReader = new FileReader();
+                        tmpReader.readAsDataURL(uploadItem.file);
+                        tmpReader.onload = (function(aImg) {
+                            return function(e) {
+                                mainImage.attr('src', e.target.result);                                
+                            };
+                        })(mainImage);            
+                        $(uploadItem).find('.progress').remove();
+                        $(uploadItem).removeClass('img-item');
+
                     } else {
                         logError('Error during uploading file `'+uploadItem.file.name+'`:<br/>'+this.lastError.text);
                     }

@@ -26,7 +26,7 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					
-					<img alt="Main Image" width="400" style="border: 1px solid #50C878"
+					<img id="main-image" alt="Main Image" width="500px" style="border: 1px solid #50C878"
 						src="${mainImage }">
 				</div>
 			</div>

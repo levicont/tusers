@@ -14,8 +14,7 @@
  *              объект ошибки, содержащий два поля: code и text
  */
 
-var uploaderObject = function(params) {
-
+var uploaderObject = function(params) {   
     if(!params.file || !params.url) {
         return false;
     }
@@ -53,18 +52,19 @@ var uploaderObject = function(params) {
             };
         }, false);
 
-        self.xhr.onreadystatechange = function () {
+        self.xhr.onreadystatechange = function () {          
             var callbackDefined = params.oncomplete instanceof Function;
             if (this.readyState == 4) {
-                if(this.status == 200) {
+
+                if(this.status == 200) {                    
                     if(!self.uploaded) {
                         if(callbackDefined) {
                             params.oncomplete.call(self, false);
                         }
-                    } else {
+                    } else {                       
                         self.successful = true;
                         if(callbackDefined) {
-                            params.oncomplete.call(self, true, this.responseText);
+                            params.oncomplete.call(self, true, this);
                         }
                     }
                 } else {
@@ -95,11 +95,14 @@ var uploaderObject = function(params) {
             // firefox
             self.xhr.sendAsBinary(body);
         } else {
-            // chrome (W3C spec.)
+            // chrome (W3C spec.)            
             self.xhr.send(body);
+           
         }
 
     };
 
     self.reader.readAsBinaryString(params.file);
+
+    
 };
