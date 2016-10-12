@@ -30,6 +30,12 @@
 						src="${mainImage }">
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					
+					<p>Place for pagenator</p>
+				</div>
+			</div>
 
 		</div>
 		<div class="col-lg-6">
@@ -65,7 +71,7 @@
 							<div class="col-lg-3 text-right">
 								<div class="form-group">
 									<label class="btn btn-default btn-file"> Browse <input
-										id="file-field" type="file" style="display: none;"/>
+										id="file-field" type="file" style="display: none;" multiple/>
 									</label>
 								</div>
 							</div>

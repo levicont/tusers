@@ -183,10 +183,18 @@ $(document).ready(function() {
                             return function(e) {
                                 mainImage.attr('src', e.target.result);                                
                             };
-                        })(mainImage);            
-                        $(uploadItem).find('.progress').remove();
+                        })(mainImage);
+                       
+                       
+                        var currentProgressBar = $(uploadItem).find('.progress');
+                        $(uploadItem).fadeOut(2000);
+                        $(uploadItem).find('.lvg-img-icon').remove();
                         $(uploadItem).removeClass('img-item');
-
+                        if( $('.img-item').length < 1){                         
+                            $(sizeInfo).text(0);
+                            $(countInfo).text(0);                          
+                        }
+                       
                     } else {
                         logError('Error during uploading file `'+uploadItem.file.name+'`:<br/>'+this.lastError.text);
                     }
