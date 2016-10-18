@@ -12,7 +12,8 @@
 
 		
 	
-	<context:property-placeholder location="/WEB-INF/jdbc.properties"/>		
+	<context:property-placeholder location="/WEB-INF/jdbc.properties"/>
+	<context:component-scan base-package="com.lvg.tusers.controllers, com.lvg.tusers.services"/>		
 	  
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${jdbc.driverClassName}"/>
@@ -62,16 +63,7 @@
 	</bean>	
 	
 	<!-- SERVICES -->
-	<bean id="userService" class="com.lvg.tusers.services.impl.UserServiceImpl">
-		<property name="dao" ref="userDao"/>
-	</bean>
-	<bean id="galleryService" class="com.lvg.tusers.services.impl.GalleryServiceImpl">
-		<property name="dao" ref="galleryDao"/>
-	</bean>
-	<bean id="imageService" class="com.lvg.tusers.services.impl.ImageServiceImpl">
-		<property name="dao" ref="imageDao"/>
-	</bean>
-	
+	<!-- All servises has injected by annotations-->
 	
 
 

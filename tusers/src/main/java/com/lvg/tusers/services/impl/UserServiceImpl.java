@@ -3,14 +3,16 @@ package com.lvg.tusers.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.lvg.tusers.dao.UserDao;
 import com.lvg.tusers.models.User;
 import com.lvg.tusers.services.UserService;
 
+@Service("userService")
 public class UserServiceImpl implements UserService{
 
-	@Autowired
+	
 	private UserDao dao;
 	
 	@Override
@@ -60,6 +62,7 @@ public class UserServiceImpl implements UserService{
 		return dao;
 	}
 
+	@Autowired
 	public void setDao(UserDao dao) {
 		this.dao = dao;
 	}
