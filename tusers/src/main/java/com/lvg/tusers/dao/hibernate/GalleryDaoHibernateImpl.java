@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lvg.tusers.dao.GalleryDao;
 import com.lvg.tusers.models.Gallery;
 
-@Repository
+@Repository("galleryDao")
 @Transactional(readOnly = true)
 public class GalleryDaoHibernateImpl extends GenericDaoHibernate implements GalleryDao{
 

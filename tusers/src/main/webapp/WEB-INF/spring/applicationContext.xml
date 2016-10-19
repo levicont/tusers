@@ -13,7 +13,7 @@
 		
 	
 	<context:property-placeholder location="/WEB-INF/jdbc.properties"/>
-	<context:component-scan base-package="com.lvg.tusers.controllers, com.lvg.tusers.services"/>		
+	<context:component-scan base-package="com.lvg.tusers.controllers, com.lvg.tusers.services, com.lvg.tusers.dao"/>		
 	  
 	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${jdbc.driverClassName}"/>
@@ -52,18 +52,9 @@
 	</bean>
 	
 	<!-- DAO -->
-	<bean id="userDao" class="com.lvg.tusers.dao.hibernate.UserDaoHibernateImpl">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>	
-	<bean id="galleryDao" class="com.lvg.tusers.dao.hibernate.GalleryDaoHibernateImpl">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>	
-	<bean id="imageDao" class="com.lvg.tusers.dao.hibernate.ImageDaoHibernateImpl">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>	
-	
+	<!-- All dao has injected by annotations -->
 	<!-- SERVICES -->
-	<!-- All servises has injected by annotations-->
+	<!-- All services has injected by annotations-->
 	
 
 

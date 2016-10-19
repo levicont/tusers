@@ -8,9 +8,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public abstract class GenericDaoHibernate {
 	
-	@Autowired
+	
 	protected SessionFactory sessionFactory;
 	
+	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

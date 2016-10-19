@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lvg.tusers.dao.ImageDao;
 import com.lvg.tusers.models.Image;
 
-@Repository
+@Repository("imageDao")
 @Transactional(readOnly = true)
 public class ImageDaoHibernateImpl extends GenericDaoHibernate implements ImageDao {
 

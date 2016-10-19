@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.lvg.tusers.dao.UserDao;
 import com.lvg.tusers.models.User;
 
-@Repository
+@Repository("userDao")
 @Transactional(readOnly = true)
 public class UserDaoHibernateImpl extends GenericDaoHibernate implements UserDao{
 

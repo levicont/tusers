@@ -6,12 +6,11 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import com.lvg.tusers.dao.UserDao;
 import com.lvg.tusers.models.User;
 
-@Repository("userDao")
+
 public class UserDaoJpaImpl implements UserDao{
 	
 	private static final String GET_ALL_USERS_SQL = "SELECT u FROM user u"; 
