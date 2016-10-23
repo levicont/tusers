@@ -7,6 +7,10 @@ import java.util.List;
 import com.lvg.tusers.models.User;
 
 public interface R {
+	
+	public interface UserConfig{
+		public String ATR_CURRENT_USER = "currentUser";
+	}
 	public interface HomePageConfig{
 		public String ATR_UPLOAD_FILE_FORM = "uploadFileForm";
 	}

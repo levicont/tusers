@@ -4,6 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
+<!-- 
+<c:set var="mainImg"/>
+<c:set var="currentGallery"/>
+ -->
+ 
 <div class="container">
 	<div class="row">
 		<div class="col-lg-6">
@@ -11,9 +16,17 @@
 				<div class="col-lg-12 text-center">
 					<c:if test="${currentUser.galleries != null }">
 						<p class="h4">Gallery</p>
-						<!-- Must fix Lazy Init Exception -->
+						
 						<c:forEach var="gallery" items="${currentUser.galleries}">
+							<c:set target="${currentGallery}" value="${gallery }"/>
 							<p>${gallery.name}</p>
+							
+							<!-- 
+							<c:forEach items="${gallery.images }" var="img" end="1">
+								<p><h1>IMG = ${img}</h1></p>
+								<c:set target="${mainImg }" value="${img }"/>
+							</c:forEach>
+							 -->
 						</c:forEach>
 					</c:if>
 				</div>
@@ -25,9 +38,20 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12 text-center">
+					<!--
+					<c:if test="${mainImg != 'null' && null != mainImg.source}">
+						<p><h1>SRC: ${mainImg.source }</h1>
+						</p>
+						 
+						<img id="main-image" alt="Main Image" width="500px" style="border: 1px solid #50C878"
+							src="${mainImg.source}">
+							
+					</c:if>
 					
-					<img id="main-image" alt="Main Image" width="500px" style="border: 1px solid #50C878"
-						src="${mainImage }">
+					 -->
+					 <img id="main-image" alt="Main Image" width="500px" style="border: 1px solid #50C878"
+							src="null">
+						
 				</div>
 			</div>
 			<div class="row">

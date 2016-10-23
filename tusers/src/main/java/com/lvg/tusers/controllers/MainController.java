@@ -30,7 +30,7 @@ import com.lvg.tusers.services.UserService;
 
 @Controller
 public class MainController implements R {	
-	private final String ATR_CURRENT_USER = "currentUser";
+	
 	private final String ATR_REGISTRATION_OK = "registrationOK";
 	
 	
@@ -45,7 +45,7 @@ public class MainController implements R {
 	public String index(HttpServletRequest request, Model model) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		request.setAttribute(ATR_CURRENT_USER, getUserFromSecurityContext(auth));
+		request.setAttribute(UserConfig.ATR_CURRENT_USER, getUserFromSecurityContext(auth));
 		return "home";
 	}
 
