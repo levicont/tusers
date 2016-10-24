@@ -8,6 +8,8 @@
 <c:set var="mainImg"/>
 <c:set var="currentGallery"/>
  -->
+
+
  
 <div class="container">
 	<div class="row">
@@ -18,15 +20,14 @@
 						<p class="h4">Gallery</p>
 						
 						<c:forEach var="gallery" items="${currentUser.galleries}">
-							<c:set target="${currentGallery}" value="${gallery }"/>
-							<p>${gallery.name}</p>
+							<c:set var="currentGallery" value="${gallery }"/>
+							<p>${gallery.name}</p>							
 							
-							<!-- 
-							<c:forEach items="${gallery.images }" var="img" end="1">
-								<p><h1>IMG = ${img}</h1></p>
-								<c:set target="${mainImg }" value="${img }"/>
+							<c:forEach items="${gallery.images }" var="img">
+								<c:set var="mainImgSrc" value="{img.source}"/>
+																							
 							</c:forEach>
-							 -->
+							 
 						</c:forEach>
 					</c:if>
 				</div>
@@ -38,25 +39,18 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<!--
-					<c:if test="${mainImg != 'null' && null != mainImg.source}">
-						<p><h1>SRC: ${mainImg.source }</h1>
-						</p>
-						 
+					<c:if test="${mainImgSrc != null }">
+						<!-- TODO Fix incorrect output of image in src attribute -->
+						<c:out value="${mainImgSrc}"/>						
 						<img id="main-image" alt="Main Image" width="500px" style="border: 1px solid #50C878"
-							src="${mainImg.source}">
-							
+							src='<% out.write(pageContext.getAttributesScope("mainImgSrc")); %>'>						
 					</c:if>
-					
-					 -->
-					 <img id="main-image" alt="Main Image" width="500px" style="border: 1px solid #50C878"
-							src="null">
+					 
 						
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-12 text-center">
-					
+				<div class="col-lg-12 text-center">					
 					<p>Place for pagenator</p>
 				</div>
 			</div>

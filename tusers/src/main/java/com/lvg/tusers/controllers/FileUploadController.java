@@ -5,6 +5,8 @@ import java.util.Iterator;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,12 +22,16 @@ import com.lvg.tusers.models.Image;
 import com.lvg.tusers.models.UploadFileForm;
 import com.lvg.tusers.models.User;
 import com.lvg.tusers.services.ImageService;
+import com.lvg.tusers.services.UserService;
+import com.lvg.tusers.utils.ApplicationContextUtil;
 
 @Controller
 public class FileUploadController implements R{
 	
 	@Autowired
 	ImageService imageService;
+	@Autowired
+	UserService userService;
 	
 	@RequestMapping(value = "upload", method = RequestMethod.POST)
 	private @ResponseBody String uploadFile(MultipartHttpServletRequest request, HttpServletResponse response)
@@ -47,7 +53,9 @@ public class FileUploadController implements R{
 			byte[] mainImageSrc = file.getBytes();
 			Image image = new Image();
 			image.setSource(mainImageSrc);
-			User currentUser = (User)request.getSession().getAttribute(UserConfig.ATR_CURRENT_USER);
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			User currentUser = ApplicationContextUtil.getUserFromSecurityContext(auth, userService);
+			System.out.println("CURRENT USER : "+ currentUser);
 			if(currentUser != null){
 				Gallery gallery = currentUser.getGalleries().iterator().next();
 				if(null != gallery){

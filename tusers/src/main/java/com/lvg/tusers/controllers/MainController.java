@@ -27,6 +27,7 @@ import com.lvg.tusers.models.UploadFileForm;
 import com.lvg.tusers.models.User;
 import com.lvg.tusers.services.GalleryService;
 import com.lvg.tusers.services.UserService;
+import com.lvg.tusers.utils.ApplicationContextUtil;
 
 @Controller
 public class MainController implements R {	
@@ -45,7 +46,8 @@ public class MainController implements R {
 	public String index(HttpServletRequest request, Model model) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		request.setAttribute(UserConfig.ATR_CURRENT_USER, getUserFromSecurityContext(auth));
+		User currentUser = ApplicationContextUtil.getUserFromSecurityContext(auth, userService);
+		request.setAttribute(UserConfig.ATR_CURRENT_USER, currentUser);
 		return "home";
 	}
 
@@ -112,16 +114,5 @@ public class MainController implements R {
 //		
 //		return "home";
 //	}
-
-	private User getUserFromSecurityContext(Authentication authentication) {
-		String email = authentication.getName();
-
-		User currentUser = null;
-		for (User user : userService.getAll()) {
-			if (user.getEmail().equals(email))
-				return user;
-		}		
-		return currentUser;		
-
-	}
+	
 }
