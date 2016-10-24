@@ -24,7 +24,7 @@
 							<p>${gallery.name}</p>							
 							
 							<c:forEach items="${gallery.images }" var="img">
-								<c:set var="mainImgSrc" value="{img.source}"/>
+								<c:set var="mainImg" value="${img}"/>
 																							
 							</c:forEach>
 							 
@@ -39,11 +39,11 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<c:if test="${mainImgSrc != null }">
+					<c:if test="${mainImg != null }">
 						<!-- TODO Fix incorrect output of image in src attribute -->
-						<c:out value="${mainImgSrc}"/>						
+						<c:out value="${mainImg.id}"/>						
 						<img id="main-image" alt="Main Image" width="500px" style="border: 1px solid #50C878"
-							src='<% out.write(pageContext.getAttributesScope("mainImgSrc")); %>'>						
+							src='img?iid=${mainImg.id }'>						
 					</c:if>
 					 
 						
