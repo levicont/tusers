@@ -21,11 +21,10 @@
 						
 						<c:forEach var="gallery" items="${currentUser.galleries}">
 							<c:set var="currentGallery" value="${gallery }"/>
-							<p>${gallery.name}</p>							
+							<p>${gallery.name}</p>					
 							
 							<c:forEach items="${gallery.images }" var="img">
-								<c:set var="mainImg" value="${img}"/>
-																							
+								<c:set var="mainImg" value="${img}"/>																							
 							</c:forEach>
 							 
 						</c:forEach>
@@ -40,8 +39,7 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<c:if test="${mainImg != null }">
-						<!-- TODO Fix incorrect output of image in src attribute -->
-						<c:out value="${mainImg.id}"/>						
+						<!-- TODO Fix incorrect output of image in src attribute   -->										
 						<img id="main-image" alt="Main Image" width="500px" style="border: 1px solid #50C878"
 							src='img?iid=${mainImg.id }'>						
 					</c:if>
