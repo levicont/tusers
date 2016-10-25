@@ -3,6 +3,9 @@ package com.lvg.tusers.controllers;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -10,6 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -53,13 +60,14 @@ public class FileUploadController implements R{
 		}
 		if (!file.isEmpty()) {
 			System.out.println("FILE HAS UPLOADED : " + file.getOriginalFilename());
-			byte[] mainImageSrc = file.getBytes();
+			byte[] mainImageSrc = file.getBytes();			
 			System.out.println("RETURNED BYTES: "+mainImageSrc);
 			Image image = imageService.getById(1);
 			image.setSource(mainImageSrc);
+			
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			User currentUser = ApplicationContextUtil.getUserFromSecurityContext(auth, userService);
-			System.out.println("CURRENT USER : "+ currentUser);
+			System.out.println("CURRENT USER : "+ currentUser.getEmail());
 			if(currentUser != null){
 				Gallery gallery = currentUser.getGalleries().iterator().next();
 				if(null != gallery){
@@ -78,13 +86,13 @@ public class FileUploadController implements R{
 	}
 
 	
-	@RequestMapping(value="img",method = RequestMethod.GET)
-	private void getImageSource(@RequestParam("iid") Long imgId, HttpServletResponse response)throws IOException{	
+	@RequestMapping(value="img",method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
+	private ResponseEntity<byte[]> getImageSource(@RequestParam("iid") Long imgId, HttpServletResponse response)throws IOException{	
 		
 		System.out.println("IMAGE ID: "+imgId);
 		Image image = imageService.getById(imgId);
 		if(image == null)
-			return;		
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);		
 		// Init servlet response.
 		System.out.println("SELECTED IMAGE IS: "+image);		
 		System.out.println("RETURNED BYTES: "+image.getSource());
@@ -95,7 +103,27 @@ public class FileUploadController implements R{
 		imageString.append("data:image/jpeg;base64,");
 		imageString.append(Base64.encodeBase64String(image.getSource())); //bytes will be image byte[] come from DB 
 		String imageStr = imageString.toString();				
+		final HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.IMAGE_JPEG);
+		/**
+		File file = new File("/home/lvg/test.jpg");
+		File srcFile = new File("/home/lvg/foto/IMG_0107.JPG");
+		BufferedInputStream inSrc = new BufferedInputStream(new FileInputStream(srcFile));
+		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));
+		BufferedInputStream in = new BufferedInputStream(new ByteArrayInputStream(image.getSource()));
+		byte[] buff = new byte[1024*10];
+		while(inSrc.available() > 0){
+			in.read(buff);
+			out.write(buff);
+			out.flush();
+		}
+		in.close();
 		
+		out.close();
+		*/
+		return new ResponseEntity<byte[]>(image.getSource(), headers, HttpStatus.CREATED);
+		
+		/*
 		response.reset();
 		response.setBufferSize(1024*10);
 		response.setHeader("Content-Type", "image/jpeg");

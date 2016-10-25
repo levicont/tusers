@@ -37,7 +37,10 @@
 			<value>
 				hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
 				hibernate.show_sql = true
+				hibernate.jdbc.use_streams_for_binary = true
+				hibernate.jdbc.batch_size = 0
 				hibernate.enable_lazy_load_no_trans = true
+				
 			</value>
 		</property>
 	</bean>
