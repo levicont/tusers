@@ -51,7 +51,7 @@ public class FileUploadController implements R{
 			throws Exception {
 		Iterator<String> iterator = request.getFileNames();
 		MultipartFile file = null;		
-		while(iterator.hasNext()){
+		if(iterator.hasNext()){
 			file = request.getFile(iterator.next());
 		}		
 		if(file == null){
@@ -64,6 +64,24 @@ public class FileUploadController implements R{
 			System.out.println("RETURNED BYTES: "+mainImageSrc);
 			Image image = imageService.getById(1);
 			image.setSource(mainImageSrc);
+			
+			/*  TESTING UPLOADED FILE 
+			File outFile = new File("/home/lvg/test.jpg");
+				
+			BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(outFile));
+			BufferedInputStream in = new BufferedInputStream(new ByteArrayInputStream(image.getSource()));
+			byte[] buff = new byte[1024*10];
+			int lenght = 0;
+			
+			while((lenght = in.read(buff)) > 0){
+				out.write(buff,0,lenght);
+				out.flush();
+			}
+			in.close();					
+			out.close();
+			*/
+			
+			
 			
 			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 			User currentUser = ApplicationContextUtil.getUserFromSecurityContext(auth, userService);
@@ -105,22 +123,8 @@ public class FileUploadController implements R{
 		String imageStr = imageString.toString();				
 		final HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.IMAGE_JPEG);
-		/**
-		File file = new File("/home/lvg/test.jpg");
-		File srcFile = new File("/home/lvg/foto/IMG_0107.JPG");
-		BufferedInputStream inSrc = new BufferedInputStream(new FileInputStream(srcFile));
-		BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));
-		BufferedInputStream in = new BufferedInputStream(new ByteArrayInputStream(image.getSource()));
-		byte[] buff = new byte[1024*10];
-		while(inSrc.available() > 0){
-			in.read(buff);
-			out.write(buff);
-			out.flush();
-		}
-		in.close();
 		
-		out.close();
-		*/
+		
 		return new ResponseEntity<byte[]>(image.getSource(), headers, HttpStatus.CREATED);
 		
 		/*
