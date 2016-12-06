@@ -1,5 +1,6 @@
 package com.lvg.tusers.models;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,27 +15,28 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name="tusers.gallery")
-public class Gallery {
+public class Gallery implements Serializable{
+		
+	private static final long serialVersionUID = 3908459790931477660L;
+	
+	
+	private Long id;
+	private int version;
+	private String name;	
+	private User user;
+	
+	
+	private Set<Image> images = new HashSet<>();
+	
 	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="tusers.gallery_id_seq")
     @SequenceGenerator(name="tusers.gallery_id_seq", sequenceName="tusers.gallery_id_seq", allocationSize=1)    
 	@Column(name="id_gallery")
-	private Long id;
-	private String name;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_user", nullable=false)
-	private User user;
-	
-	@OneToMany(fetch = FetchType.LAZY, targetEntity=Image.class, mappedBy="gallery")
-	private Set<Image> images = new HashSet<>();
-	
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -42,9 +44,18 @@ public class Gallery {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
-	
+		
+	@Version
+	@Column(name="version")
+	public int getVersion() {
+		return version;
+	}
 
+	public void setVersion(int version) {
+		this.version = version;
+	}
+
+	@Column(name="name")
 	public String getName() {
 		return name;
 	}
@@ -54,7 +65,8 @@ public class Gallery {
 	}
 
 	
-	
+	@ManyToOne(fetch=FetchType.LAZY, targetEntity=User.class)
+	@JoinColumn(name="id_user", nullable=false)
 	public User getUser() {
 		return user;
 	}
@@ -63,7 +75,7 @@ public class Gallery {
 		this.user = user;
 	}
 
-	
+	@OneToMany(mappedBy="gallery")
 	public Set<Image> getImages() {
 		return images;
 	}
@@ -96,6 +108,14 @@ public class Gallery {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {		
+		return "GALLERY: \t id: "+id+"\n"+
+				"\t name: "+name+"\n";
+	}
+	
+	
 	
 	
 	

@@ -11,7 +11,7 @@ public class ApplicationContextUtil {
 		String email = authentication.getName();
 
 		User currentUser = null;
-		for (User user : userService.getAll()) {
+		for (User user : userService.findAll()) {
 			if (user.getEmail().equals(email))
 				return user;
 		}		

@@ -40,11 +40,11 @@
 					<div class="row">
 						<div class="col-md-offset-2 col-lg-7">
 							<div class="form-group">
-								<label for="birthday">Birthday</label>
+								<label for="birthDate">Birthday</label>
 								<div class='input-group date' id='datetimepicker'>
 									<!-- fmt:formatDate pattern='dd.MM.yyyy' type='date'
 									value="${user.birthday }" var="formattedDate" /-->
-									<form:input path="birthday" id="birthday" 
+									<form:input path="birthDate" id="birthDate" 
 										cssClass="form-control" />
 									<span class="input-group-addon"> <span
 										class="glyphicon glyphicon-calendar"></span>
@@ -99,6 +99,7 @@
 							<div class="form-group">
 								<label for="info">More information</label>
 								<form:textarea path="info" id="info" cssClass="form-control" />
+								<form:hidden path="version"/>
 							</div>
 						</div>
 					</div>

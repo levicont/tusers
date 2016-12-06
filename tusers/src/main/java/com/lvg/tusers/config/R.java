@@ -30,7 +30,7 @@ public interface R {
 			u1.setEmail("mike@d.com");
 			u1.setPassword("c4ca4238a0b923820dcc509a6f75849b");
 			u1.setInfo("This is Mike Oldfield");
-			u1.setBirthday(new Date());
+			u1.setBirthDate(new Date());
 			add(u1);
 			
 		}};

@@ -12,53 +12,13 @@
 
 		
 	
-	<context:property-placeholder location="/WEB-INF/jdbc.properties"/>
-	<context:component-scan base-package="com.lvg.tusers.controllers, com.lvg.tusers.services, com.lvg.tusers.dao"/>		
-	  
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-		<property name="driverClass" value="${jdbc.driverClassName}"/>
-		<property name="jdbcUrl" value="${jdbc.url}"/>
-		<property name="user" value="${jdbc.username}"/>
-		<property name="password" value="${jdbc.password}"/>
-		
-		<property name="checkoutTimeout" value="30000" />
-        <property name="idleConnectionTestPeriod" value="30"/>
-        <property name="initialPoolSize" value="10" />
-        <property name="maxIdleTime" value="30" />
-        <property name="maxPoolSize" value="100" />
-        <property name="minPoolSize" value="10" />
-        <property name="maxStatements" value="10" />	
-	</bean>
-
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
-		<property name="packagesToScan" value="com.lvg.tusers.models"/>		
-		<property name="hibernateProperties">
-			<value>
-				hibernate.dialect = org.hibernate.dialect.PostgreSQLDialect
-				hibernate.show_sql = true
-				hibernate.jdbc.use_streams_for_binary = true
-				hibernate.jdbc.batch_size = 0
-				hibernate.enable_lazy_load_no_trans = true
-				
-			</value>
-		</property>
-	</bean>
-
+	<context:property-placeholder location="classpath:/META-INF/application.properties"/>
+	<import resource="datasource-jpa-context.xml"/>  
+	<context:component-scan base-package="com.lvg.tusers"/>
 	
 	<bean
-		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 	
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory"/>
-	</bean>
 	
-	<!-- DAO -->
-	<!-- All dao has injected by annotations -->
-	<!-- SERVICES -->
-	<!-- All services has injected by annotations-->
 	
-
-
 </beans>

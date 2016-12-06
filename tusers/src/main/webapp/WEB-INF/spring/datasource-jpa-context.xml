@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc
+	 http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+         http://www.springframework.org/schema/beans
+	 http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/tx
+	 http://www.springframework.org/schema/tx/spring-tx.xsd
+         http://www.springframework.org/schema/context
+	 http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/data/jpa
+	 http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        ">
+
+	
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}"/>
+		<property name="jdbcUrl" value="${jdbc.url}"/>
+		<property name="user" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+		
+		<property name="checkoutTimeout" value="30000" />
+        <property name="idleConnectionTestPeriod" value="30"/>
+        <property name="initialPoolSize" value="10" />
+        <property name="maxIdleTime" value="30" />
+        <property name="maxPoolSize" value="100" />
+        <property name="minPoolSize" value="10" />
+        <property name="maxStatements" value="10" />	
+	</bean>
+	
+	<jdbc:initialize-database data-source="dataSource">
+		<jdbc:script location="classpath:META-INF/db/schema-init.sql" />
+		<jdbc:script location="classpath:META-INF/db/data-init.sql" />
+	</jdbc:initialize-database>	
+	
+	
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="emf" />
+	</bean>
+
+	<tx:annotation-driven />
+	<context:component-scan base-package="com.lvg.tusers" />
+
+	<bean id="emf"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="packagesToScan" value="com.lvg.tusers" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</prop>
+				<prop key="hibernate.max_fetch_depth">3</prop>
+				<prop key="hibernate.jdbc.fetch_size">50</prop>
+				<prop key="hibernate.jdbc.batch_size">1</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.jdbc.use_streams_for_binary">true</prop>
+				<prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- This constructions for providing Services with Spring Data JPA -->
+	<jpa:repositories base-package="com.lvg.tusers"
+		entity-manager-factory-ref="emf" transaction-manager-ref="transactionManager" />
+
+</beans>

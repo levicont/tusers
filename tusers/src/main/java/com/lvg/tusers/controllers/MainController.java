@@ -23,7 +23,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lvg.tusers.config.R;
 import com.lvg.tusers.models.Gallery;
-import com.lvg.tusers.models.UploadFileForm;
 import com.lvg.tusers.models.User;
 import com.lvg.tusers.services.GalleryService;
 import com.lvg.tusers.services.UserService;
@@ -99,11 +98,11 @@ public class MainController implements R {
 		
 		String cryptedPass = bcrypt.encode(user.getPassword());		
 		user.setPassword(cryptedPass);
-		userService.add(user);
+		userService.save(user);
 		Gallery gallery = new Gallery();
 		gallery.setName(GalleryConfig.DEFAULT_GALLERY_NAME);
 		gallery.setUser(user);
-		galleryService.add(gallery);		
+		galleryService.save(gallery);		
 		redir.addFlashAttribute(ATR_REGISTRATION_OK, ATR_REGISTRATION_OK);
 		redir.addFlashAttribute("user", user);
 		return "redirect:/signin";

@@ -1,5 +1,8 @@
 package com.lvg.tusers.models;
 
+import java.io.Serializable;
+
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,28 +10,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Version;
 
 @Entity
 @Table(name="tusers.image")
-public class Image {
+public class Image implements Serializable{
+	
+	private static final long serialVersionUID = 6781196858084958755L;
+
+	private Long id;
+	private int version;
+	private Gallery gallery;	
+	private byte[] source;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="tusers.image_id_seq")
     @SequenceGenerator(name="tusers.image_id_seq", sequenceName="tusers.image_id_seq", allocationSize=1)    
 	@Column(name="id_image")
-	private Long id;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_gallery", nullable=false)
-	private Gallery gallery;
-	
-	@Column(name="src")	
-	private byte[] source;
-	
-	
 	public Long getId() {
 		return id;
 	}
@@ -36,7 +38,8 @@ public class Image {
 		this.id = id;
 	}
 	
-	
+	@ManyToOne(fetch=FetchType.LAZY, targetEntity=Gallery.class)
+	@JoinColumn(name="id_gallery", nullable=false)
 	public Gallery getGallery() {
 		return gallery;
 	}
@@ -44,13 +47,26 @@ public class Image {
 		this.gallery = gallery;
 	}
 	
-	
+	@Column(name="src")
+	@Lob
+	@Basic(fetch=FetchType.LAZY)
 	public byte[] getSource() {
 		return source;
 	}
 	public void setSource(byte[] source) {
 		this.source = source;
 	}
+	
+	@Version
+	@Column(name= "version")
+	public int getVersion() {
+		return version;
+	}
+	public void setVersion(int version) {
+		this.version = version;
+	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -74,7 +90,12 @@ public class Image {
 			return false;
 		return true;
 	}
+	@Override
+	public String toString() {
+		
+		return "IMAGE: id: "+id;
+	}
 	
 	
-
+	
 }

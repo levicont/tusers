@@ -1,11 +1,5 @@
 package com.lvg.tusers.controllers;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Iterator;
 
@@ -62,7 +56,7 @@ public class FileUploadController implements R{
 			System.out.println("FILE HAS UPLOADED : " + file.getOriginalFilename());
 			byte[] mainImageSrc = file.getBytes();			
 			System.out.println("RETURNED BYTES: "+mainImageSrc);
-			Image image = imageService.getById(1);
+			Image image = imageService.findById(1L);
 			image.setSource(mainImageSrc);
 			
 			/*  TESTING UPLOADED FILE 
@@ -90,7 +84,7 @@ public class FileUploadController implements R{
 				Gallery gallery = currentUser.getGalleries().iterator().next();
 				if(null != gallery){
 					image.setGallery(gallery);
-					imageService.update(image);
+					imageService.save(image);
 				}
 			}			 
 			
@@ -108,7 +102,7 @@ public class FileUploadController implements R{
 	private ResponseEntity<byte[]> getImageSource(@RequestParam("iid") Long imgId, HttpServletResponse response)throws IOException{	
 		
 		System.out.println("IMAGE ID: "+imgId);
-		Image image = imageService.getById(imgId);
+		Image image = imageService.findById(imgId);
 		if(image == null)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);		
 		// Init servlet response.

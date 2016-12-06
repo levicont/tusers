@@ -24,7 +24,7 @@
       <c:if test="${currentUser!=null }">
       <p class="navbar-text navbar-left">
       	${currentUser.name } ${currentUser.surname } |
-      	${currentUser.birthday } |
+      	${currentUser.birthDate } |
       	${currentUser.email }</p>          
       
       <ul class="nav navbar-nav navbar-right">        

@@ -12,22 +12,25 @@ drop table if exists tusers.image cascade;
 
 
 create table tusers.user (	id_user bigint primary key,
+							version int not null default 0,
 							name text,
 							surname text,
 							email text,
-							birthday date,
+							birth_date date,
 							password text,
 							info text);
 alter table tusers.user owner to tusers;
 
  
-create table tusers.gallery (	id_gallery bigint primary key,
+create table tusers.gallery (id_gallery bigint primary key,
+							version int not null default 0,
 							name text,
 							id_user bigint REFERENCES tusers.user (id_user) on delete cascade);
 alter table tusers.gallery owner to tusers;
 
 
 create table tusers.image (	id_image bigint primary key,
+							version int not null default 0,
 							id_gallery bigint REFERENCES tusers.gallery (id_gallery) on delete cascade,
 							name text,
 							src bytea);
