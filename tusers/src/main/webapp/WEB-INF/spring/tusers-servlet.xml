@@ -12,12 +12,8 @@
 
 
 	<mvc:annotation-driven />
-	<context:component-scan
-		base-package="com.lvg.tusers.dao.hibernate,com.lvg.tusers.controllers,com.lvg.tusers.models" />
-
-	<!-- ... -->
-
-
+	<context:component-scan base-package="com.lvg.tusers"/>
+	
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesViewResolver" />
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
@@ -26,6 +22,7 @@
 			</list>
 		</property>
 	</bean>
+	
 	<mvc:resources location="/WEB-INF/files/" mapping="/files/**" />
 	<bean class="com.lvg.tusers.exceptions.TUsersExceptionResolver">
 		<property name="exceptionMappings">
@@ -35,6 +32,7 @@
 		</property>
 		<property name="defaultErrorView" value="deferror"></property>
 	</bean>
+	
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">		
 	</bean>	
 
