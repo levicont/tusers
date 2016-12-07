@@ -38,7 +38,7 @@
 			</div>
 			<div class="row">
 				<div class="col-lg-12 text-center">
-					<c:if test="${mainImg != null }">
+					<c:if test="${not empty mainImg }">
 						<!-- TODO Fix incorrect output of image in src attribute   -->										
 						<img id="main-image" alt="Main Image" width="500px" style="border: 1px solid #50C878"
 							src='img?iid=${mainImg.id }'>						

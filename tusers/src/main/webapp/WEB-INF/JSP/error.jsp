@@ -6,5 +6,6 @@
 
 <div>
 <p class="text-center lvg-error-message">APPLICATION ERROR!</p>
-<p class="text-center lvg-error-message">${errorMessage }</p>	
+<p class="text-center lvg-error-message">${errorMessage }</p>
+<p class="text-center lvg-error-message">${exception }</p>	
 </div>

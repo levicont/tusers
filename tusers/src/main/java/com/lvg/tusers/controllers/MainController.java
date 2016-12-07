@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,7 +31,7 @@ import com.lvg.tusers.utils.ApplicationContextUtil;
 
 @Controller
 public class MainController implements R {	
-	
+	private static final Logger LOG = Logger.getLogger(MainController.class);
 	private final String ATR_REGISTRATION_OK = "registrationOK";
 	
 	
@@ -98,6 +99,7 @@ public class MainController implements R {
 		
 		String cryptedPass = bcrypt.encode(user.getPassword());		
 		user.setPassword(cryptedPass);
+		LOG.info("SAVING USER" + user);
 		userService.save(user);
 		Gallery gallery = new Gallery();
 		gallery.setName(GalleryConfig.DEFAULT_GALLERY_NAME);

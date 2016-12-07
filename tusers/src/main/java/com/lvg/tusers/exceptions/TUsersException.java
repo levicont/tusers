@@ -8,4 +8,8 @@ public class TUsersException extends Exception {
 	public TUsersException(String message){
 		super(message);
 	}
+	
+	public TUsersException(String message, Throwable cause){
+		super(message, cause);
+	}
 }
