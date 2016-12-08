@@ -33,7 +33,8 @@
 		<property name="defaultErrorView" value="deferror"></property>
 	</bean>
 	
-	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">		
-	</bean>	
+	<!-- Bean for upload and download files (multipart from data) -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+	</bean>
 
 </beans>

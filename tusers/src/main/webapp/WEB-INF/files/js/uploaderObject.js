@@ -88,17 +88,28 @@ var uploaderObject = function(params) {
         var body = "--" + boundary + "\r\n";
         body += "Content-Disposition: form-data; name='"+(params.fieldName || 'file')+"'; filename='" + params.file.name + "'\r\n";
         body += "Content-Type: application/octet-stream\r\n\r\n";
-        body += self.reader.result + "\r\n";
+        //body += self.reader.result + "\r\n";
         body += "--" + boundary + "--";
 
+        var formData = new FormData();
+        formData.append("fileName",params.file.name);
+        formData.append("file", params.file);
+        var nXhr = new XMLHttpRequest();
+        nXhr.open("POST", params.url);
+        nXhr.setRequestHeader("X-CSRF-TOKEN", params.csrfValue);
+        nXhr.send(formData);
+
+        /*
         if(self.xhr.sendAsBinary) {
             // firefox
-            self.xhr.sendAsBinary(body);
+            //self.xhr.sendAsBinary(body);
+            self.xhr.sendAsBinary(formData);
         } else {
             // chrome (W3C spec.)            
-            self.xhr.send(body);
+            //self.xhr.send(body);
+            self.xhr.send(formData);
            
-        }
+        }*/
 
     };
 
