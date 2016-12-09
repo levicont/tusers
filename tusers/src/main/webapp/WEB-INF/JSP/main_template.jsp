@@ -22,6 +22,13 @@
 <spring:url value="/files/js/fileUploaderInterface.js" var="fileUploaderInterface"/>
 <spring:url value="/files/js/uploaderObject.js" var="uploaderObject"/>
 
+<!-- jPages -->
+<spring:url value="/files/js/jpages/jPages.min.js" var="jPagesUrl"/>
+<spring:url value="/files/js/jpages/jquery.lazyload.js" var="jPagesLazyLoadUrl"/>
+<spring:url value="/files/js/jpages/css/jPages.css" var="jPagesCssUrl"/>
+<spring:url value="/files/js/jpages/css/animate.css" var="jPagesAnimateCssUrl"/>
+
+
 <!-- CSS links -->
 <spring:url value="/files/css/main.css" var="mainCSS" />
 <spring:url
@@ -41,8 +48,13 @@
 <script src="${bootStrapDateTimePickerJS }"></script>
 <script src="${validatorJS}"> </script> 
 <script src="${fileUploaderInterface }"></script>
-<script src="${uploaderObject}"> </script>   
+<script src="${uploaderObject}"> </script>
+<script src="${jPagesUrl}"> </script>
+<script src="${jPagesLazyLoadUrl}"> </script>
+   
 
+<link rel="stylesheet" href="${jPagesCssUrl }" type="text/css">
+<link rel="stylesheet" href="${jPagesAnimateCssUrl }" type="text/css">
 <link rel="stylesheet" href="${bootStrapCSS }" type="text/css">
 <link rel="stylesheet" href="${bootStrapDateTimePickerCSS }" type="text/css">
 <link rel="stylesheet" href="${awesomeCSS }">

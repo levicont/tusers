@@ -10,7 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -26,6 +25,7 @@ public class Image implements Serializable{
 	private int version;
 	private Gallery gallery;	
 	private byte[] source;
+	private String name;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator="tusers.image_id_seq")
@@ -47,8 +47,7 @@ public class Image implements Serializable{
 		this.gallery = gallery;
 	}
 	
-	@Column(name="src")
-	@Lob
+	@Column(name="src")	
 	@Basic(fetch=FetchType.LAZY)
 	public byte[] getSource() {
 		return source;
@@ -57,6 +56,14 @@ public class Image implements Serializable{
 		this.source = source;
 	}
 	
+	
+	@Column(name="name")
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	@Version
 	@Column(name= "version")
 	public int getVersion() {

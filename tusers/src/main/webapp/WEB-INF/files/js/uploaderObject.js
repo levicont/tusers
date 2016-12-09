@@ -29,7 +29,7 @@ var uploaderObject = function(params) {
     
     var self = this;    
 
-    self.reader.onload = function() {
+    self.reader.onload = function() {        
         self.xhr.upload.addEventListener("progress", function(e) {
             if (e.lengthComputable) {
                 self.progress = (e.loaded * 100) / e.total;
@@ -52,7 +52,7 @@ var uploaderObject = function(params) {
             };
         }, false);
 
-        self.xhr.onreadystatechange = function () {          
+        self.xhr.onreadystatechange = function () {              
             var callbackDefined = params.oncomplete instanceof Function;
             if (this.readyState == 4) {
 
@@ -79,41 +79,24 @@ var uploaderObject = function(params) {
             }
         };
 
-        self.xhr.open("POST", params.url);
-
-        var boundary = "xxxxxxxxx";
-        self.xhr.setRequestHeader("Content-Type", "multipart/form-data, boundary="+boundary);
-        self.xhr.setRequestHeader("Cache-Control", "no-cache");
-        self.xhr.setRequestHeader("X-CSRF-TOKEN", params.csrfValue);
-        var body = "--" + boundary + "\r\n";
-        body += "Content-Disposition: form-data; name='"+(params.fieldName || 'file')+"'; filename='" + params.file.name + "'\r\n";
-        body += "Content-Type: application/octet-stream\r\n\r\n";
-        //body += self.reader.result + "\r\n";
-        body += "--" + boundary + "--";
-
+       
         var formData = new FormData();
         formData.append("fileName",params.file.name);
-        formData.append("file", params.file);
-        var nXhr = new XMLHttpRequest();
-        nXhr.open("POST", params.url);
-        nXhr.setRequestHeader("X-CSRF-TOKEN", params.csrfValue);
-        nXhr.send(formData);
+        formData.append("file", params.file);     
+        self.xhr.open("POST", params.url);
+        self.xhr.setRequestHeader("X-CSRF-TOKEN", params.csrfValue);
 
-        /*
+                
         if(self.xhr.sendAsBinary) {
-            // firefox
-            //self.xhr.sendAsBinary(body);
+            // firefox         
             self.xhr.sendAsBinary(formData);
         } else {
-            // chrome (W3C spec.)            
-            //self.xhr.send(body);
+            // chrome (W3C spec.) 
             self.xhr.send(formData);
            
-        }*/
+        }
 
-    };
-
-    self.reader.readAsBinaryString(params.file);
-
+    };  
+    self.reader.readAsBinaryString(params.file);   
     
 };

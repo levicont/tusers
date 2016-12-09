@@ -3,30 +3,41 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!-- 
 <c:set var="mainImg"/>
 <c:set var="currentGallery"/>
  -->
 
+<spring:url value="/img" var="imageUrl" />
 
- 
+<script type="text/javascript">
+$(function(){
+
+	  $("div.holder").jPages({		 
+	    containerID : "itemContainer"
+	  });
+
+	});
+</script>
+
 <div class="container">
 	<div class="row">
-		<div class="col-lg-6">
+		<div class="col-lg-7">
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<c:if test="${currentUser.galleries != null }">
 						<p class="h4">Gallery</p>
-						
+
 						<c:forEach var="gallery" items="${currentUser.galleries}">
-							<c:set var="currentGallery" value="${gallery }"/>
-							<p>${gallery.name}</p>					
-							
+							<c:set var="currentGallery" value="${gallery }" />
+							<p>${gallery.name}</p>
+
 							<c:forEach items="${gallery.images }" var="img">
-								<c:set var="mainImg" value="${img}"/>																							
+								<c:set var="mainImg" value="${img}" />
 							</c:forEach>
-							 
+
 						</c:forEach>
 					</c:if>
 				</div>
@@ -39,25 +50,29 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<c:if test="${not empty mainImg }">
-						<!-- TODO Fix incorrect output of image in src attribute   -->										
-						<img id="main-image" alt="Main Image" width="500px" style="border: 1px solid #50C878"
-							src='img?iid=${mainImg.id }'>						
+						<!-- TODO Fix incorrect output of image in src attribute   -->
+						<img id="main-image" alt="Main Image" width="500px"
+							style="border: 1px solid #50C878"
+							src='${imageUrl}/${mainImg.id }'>
 					</c:if>
-					 
-						
+
+
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-lg-12 text-center">					
+				<div class="col-lg-12 text-center">
 					<p>Place for pagenator</p>
+					<div class="holder"></div>
+					<ul id="itemContainer">
+						<!-- Items -->
+					</ul>
 				</div>
 			</div>
 
 		</div>
-		<div class="col-lg-6">
+		<div class="col-lg-5 text-right">
 			<!-- FORM Container -->
-			<form action="upload" enctype="multipart/form-data"
-				method="post">
+			<form action="upload" enctype="multipart/form-data" method="post">
 				<input id="_csrf" type="hidden" name="${_csrf.parameterName}"
 					value="${_csrf.token}">
 				<div class="panel panel-primary">
@@ -87,7 +102,7 @@
 							<div class="col-lg-3 text-right">
 								<div class="form-group">
 									<label class="btn btn-default btn-file"> Browse <input
-										id="file-field" type="file" style="display: none;" multiple/>
+										id="file-field" type="file" style="display: none;" multiple />
 									</label>
 								</div>
 							</div>
