@@ -61,7 +61,7 @@ public class FileUploadController implements R{
 			}
 			Image newImage = new Image();
 			newImage.setGallery(gallery);
-			newImage.setName(file.getName());
+			newImage.setName(file.getSubmittedFileName());
 			byte[] source = null;
 			try {
 				InputStream in = file.getInputStream();
