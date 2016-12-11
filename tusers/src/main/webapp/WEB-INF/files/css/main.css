@@ -102,5 +102,17 @@ html, body, #content {
 	color: #39d455;
 }
 
+/* Styles for pagination */
+/*
+ul.hr {
+	margin:0px;
+	padding:5px;	
+}
+*/
+.lvg-jp-item{
+	border:2px solid #FFF;
+	
+
+	}
 
 }

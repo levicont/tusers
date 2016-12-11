@@ -13,13 +13,25 @@
 <spring:url value="/img" var="imageUrl" />
 
 <script type="text/javascript">
-	$(function() {
-
-		$("#pagingHolder").jPages({
-			containerID : "itemContainer"
-		});
-
-	});
+$(function() {
+    /* initiate lazyload defining a custom event to trigger image loading  */
+    $("ul li img").lazyload({
+        event : "turnPage",
+        effect : "fadeIn"
+    });
+    /* initiate plugin */
+    $("div.holder").jPages({
+        containerID : "itemContainer",
+        animation   : "fadeInUp",
+        callback    : function( pages,
+        items ){
+            /* lazy load current images */
+        items.showing.find("img").trigger("turnPage");
+        /* lazy load next page images */
+        items.oncoming.find("img").trigger("turnPage");
+        }
+    });
+});
 </script>
 
 <div class="container">
@@ -48,13 +60,13 @@
 					</c:forEach>
 					<div id="pagingImageItemsContainer" class="row">
 						<div class="col-lg-12 text-center">
-							<p>Place for pagenator</p>
-							<div id="pagingHolder" class="holder"></div>
-							<ul id="itemContainer">
+							<div class="holder"></div>
+							<ul id="itemContainer" class="list-unstyled list-inline">
 								<c:forEach items="${currentGallery.images }" var="imageItem">
-									<li><img src="${imgUrl}/${imageItem.id}"></li>
-								</c:forEach>
-								<li></li>
+									<li class="lvg-jp-item">
+										<img src="" data-original="${imageUrl}/${imageItem.id}" class="image-thumbnail" height="65" width="80">
+									</li>
+								</c:forEach>																
 							</ul>
 						</div>
 					</div>

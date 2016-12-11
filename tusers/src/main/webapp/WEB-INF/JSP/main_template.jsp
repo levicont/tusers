@@ -25,6 +25,8 @@
 <!-- jPages -->
 <spring:url value="/files/js/jpages/jPages.min.js" var="jPagesUrl"/>
 <spring:url value="/files/js/jpages/jquery.lazyload.js" var="jPagesLazyLoadUrl"/>
+<spring:url value="/files/js/jpages/js.js" var="jPagesJsUrl"/>
+<spring:url value="/files/js/jpages/tabifier.js" var="jPagesTabifierUrl"/>
 <spring:url value="/files/js/jpages/css/jPages.css" var="jPagesCssUrl"/>
 <spring:url value="/files/js/jpages/css/animate.css" var="jPagesAnimateCssUrl"/>
 
@@ -42,6 +44,15 @@
 	var="awesomeCSS" />
 
 
+   
+
+<link rel="stylesheet" href="${bootStrapCSS }" type="text/css">
+<link rel="stylesheet" href="${bootStrapDateTimePickerCSS }" type="text/css">
+<link rel="stylesheet" href="${awesomeCSS }">
+<link rel="stylesheet" href="${mainCSS }" type="text/css">
+<link rel="stylesheet" href="${jPagesCssUrl }" type="text/css">
+<link rel="stylesheet" href="${jPagesAnimateCssUrl }" type="text/css">
+
 <script src="${jqueryJS }"></script>
 <script src="${momentWithLocalesJS }"></script>
 <script src="${bootstrapStrapJS }"></script>
@@ -49,16 +60,12 @@
 <script src="${validatorJS}"> </script> 
 <script src="${fileUploaderInterface }"></script>
 <script src="${uploaderObject}"> </script>
+
+
+<script type="${jPagesTabifierUrl}"></script>
+<script type="${jPagesJsUrl}"></script>
 <script src="${jPagesUrl}"> </script>
 <script src="${jPagesLazyLoadUrl}"> </script>
-   
-
-<link rel="stylesheet" href="${jPagesCssUrl }" type="text/css">
-<link rel="stylesheet" href="${jPagesAnimateCssUrl }" type="text/css">
-<link rel="stylesheet" href="${bootStrapCSS }" type="text/css">
-<link rel="stylesheet" href="${bootStrapDateTimePickerCSS }" type="text/css">
-<link rel="stylesheet" href="${awesomeCSS }">
-<link rel="stylesheet" href="${mainCSS }" type="text/css">
 	
 
 </head>
