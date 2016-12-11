@@ -13,11 +13,11 @@
 <spring:url value="/img" var="imageUrl" />
 
 <script type="text/javascript">
-$(function(){
+	$(function() {
 
-	  $("div.holder").jPages({		 
-	    containerID : "itemContainer"
-	  });
+		$("#pagingHolder").jPages({
+			containerID : "itemContainer"
+		});
 
 	});
 </script>
@@ -25,50 +25,44 @@ $(function(){
 <div class="container">
 	<div class="row">
 		<div class="col-lg-7">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<c:if test="${currentUser.galleries != null }">
-						<p class="h4">Gallery</p>
+			<c:if test="${currentUser.galleries != null }">
+				<p class="h4">Gallery</p>
+				<c:forEach var="gallery" items="${currentUser.galleries}" end="1">
+					<c:set var="currentGallery" value="${gallery}" />
+					<p>${gallery.name}</p>
+					<!-- END GALLERY ITEMS -->
+				</c:forEach>
+				<c:if test="${not empty currentGallery}">
+					<c:forEach items="${currentGallery.images }" var="img" end="0">
+						<c:set var="mainImg" value="${img}" />
+						<div id="mainImageContainer" class="row">
+							<div class="col-lg-12 text-center">
+								<c:if test="${not empty mainImg }">
+									<img id="main-image" alt="Main Image" width="500px"
+										style="border: 1px solid #50C878"
+										src='${imageUrl}/${mainImg.id }'>
+								</c:if>
+							</div>
+						</div>
+						<!-- END IMAGE ITEMS -->
+					</c:forEach>
+					<div id="pagingImageItemsContainer" class="row">
+						<div class="col-lg-12 text-center">
+							<p>Place for pagenator</p>
+							<div id="pagingHolder" class="holder"></div>
+							<ul id="itemContainer">
+								<c:forEach items="${currentGallery.images }" var="imageItem">
+									<li><img src="${imgUrl}/${imageItem.id}"></li>
+								</c:forEach>
+								<li></li>
+							</ul>
+						</div>
+					</div>
 
-						<c:forEach var="gallery" items="${currentUser.galleries}">
-							<c:set var="currentGallery" value="${gallery }" />
-							<p>${gallery.name}</p>
 
-							<c:forEach items="${gallery.images }" var="img">
-								<c:set var="mainImg" value="${img}" />
-							</c:forEach>
+				</c:if>
 
-						</c:forEach>
-					</c:if>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<p>${uploadStatus }</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<c:if test="${not empty mainImg }">
-						<!-- TODO Fix incorrect output of image in src attribute   -->
-						<img id="main-image" alt="Main Image" width="500px"
-							style="border: 1px solid #50C878"
-							src='${imageUrl}/${mainImg.id }'>
-					</c:if>
-
-
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<p>Place for pagenator</p>
-					<div class="holder"></div>
-					<ul id="itemContainer">
-						<!-- Items -->
-					</ul>
-				</div>
-			</div>
-
+			</c:if>
 		</div>
 		<div class="col-lg-5 text-right">
 			<!-- FORM Container -->
