@@ -11,32 +11,48 @@
  -->
 
 <spring:url value="/img" var="imageUrl" />
+<spring:url value="/files/img/load-icon.gif" var="loadImageUrl" />
 
 <script type="text/javascript">
-$(function() {
-    /* initiate lazyload defining a custom event to trigger image loading  */
-    $("ul li img").lazyload({
-        event : "turnPage",
-        effect : "fadeIn"
-    });
-    /* initiate plugin */
-    $("div.holder").jPages({
-        containerID : "itemContainer",
-        animation   : "fadeInUp",
-        callback    : function( pages,
-        items ){
-            /* lazy load current images */
-        items.showing.find("img").trigger("turnPage");
-        /* lazy load next page images */
-        items.oncoming.find("img").trigger("turnPage");
-        }
-    });
-});
+	$(function() {
+		/* initiate lazyload defining a custom event to trigger image loading  */
+		$("ul li img").lazyload({
+			event : "turnPage",
+			effect : "fadeIn"
+		});
+		/* initiate plugin */
+		$("div.holder").jPages({
+			containerID : "itemContainer",
+			perPage : 5,
+			animation : "fadeInUp",
+			callback : function(pages, items) {
+				/* lazy load current images */
+				items.showing.find("img").trigger("turnPage");
+				/* lazy load next page images */
+				items.oncoming.find("img").trigger("turnPage");
+			}
+		});
+
+		$(".lvg-img-item").click(function(e) {
+			currentImage = $(this);
+			mainImage = $("#main-image");
+			if (mainImage) {
+				mainImage.attr("src", currentImage.attr("src"));
+			}
+		});
+		$(".lvg-img-item").hover(function(e) {
+			currentImage = $(this);
+			currentImage.addClass("lvg-active-image-item");
+		}, function(e) {
+			currentImage = $(this);
+			currentImage.removeClass("lvg-active-image-item");
+		});
+	});
 </script>
 
 <div class="container">
 	<div class="row">
-		<div class="col-lg-7">
+		<div class="col-lg-7 text-center">
 			<c:if test="${currentUser.galleries != null }">
 				<p class="h4">Gallery</p>
 				<c:forEach var="gallery" items="${currentUser.galleries}" end="1">
@@ -48,13 +64,18 @@ $(function() {
 					<c:forEach items="${currentGallery.images }" var="img" end="0">
 						<c:set var="mainImg" value="${img}" />
 						<div id="mainImageContainer" class="row">
-							<div class="col-lg-12 text-center">
-								<c:if test="${not empty mainImg }">
-									<img id="main-image" alt="Main Image" width="500px"
-										style="border: 1px solid #50C878"
-										src='${imageUrl}/${mainImg.id }'>
-								</c:if>
-							</div>
+							
+								<table id="main-image-holder" class="col-lg-12 text-center">
+									<tbody>
+										<tr>
+											<c:if test="${not empty mainImg }">
+												<td class="text-center align-middle"><img id="main-image"
+													alt="Main Image" src='${imageUrl}/${mainImg.id }'></td>
+											</c:if>
+										</tr>
+									</tbody>
+								</table>
+							
 						</div>
 						<!-- END IMAGE ITEMS -->
 					</c:forEach>
@@ -63,17 +84,15 @@ $(function() {
 							<div class="holder"></div>
 							<ul id="itemContainer" class="list-unstyled list-inline">
 								<c:forEach items="${currentGallery.images }" var="imageItem">
-									<li class="lvg-jp-item">
-										<img src="" data-original="${imageUrl}/${imageItem.id}" class="image-thumbnail" height="65" width="80">
+									<li class="lvg-jp-item"><img src="${loadImageUrl}"
+										data-original="${imageUrl}/${imageItem.id}"
+										class="image-thumbnail lvg-img-item" height="65" width="80">
 									</li>
-								</c:forEach>																
+								</c:forEach>
 							</ul>
 						</div>
 					</div>
-
-
 				</c:if>
-
 			</c:if>
 		</div>
 		<div class="col-lg-5 text-right">

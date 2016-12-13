@@ -17,7 +17,7 @@ html, body, #content {
 	padding-bottom: 60px;
 }
 
-#main {	
+#main {
 	min-height: 100%;
 	min-width: 340px;
 	margin-bottom: -60px;
@@ -25,94 +25,102 @@ html, body, #content {
 
 #header {
 	margin: 0;
-    padding: 5px 10px 0;
-    background: linear-gradient(to bottom, #417DFF, #96B8FF);
-    color: #eee;
+	padding: 5px 10px 0;
+	background: linear-gradient(to bottom, #417DFF, #96B8FF);
+	color: #eee;
 }
 
-#lvg-main-menu{
-	background: linear-gradient(to top, #FF9640, #FFB273);	
+#lvg-main-menu {
+	background: linear-gradient(to top, #FF9640, #FFB273);
 	border-radius: 3px;
-	
 }
 
-.navbar-default .navbar-nav > li > a {
-    color:#A64B00;
+.navbar-default .navbar-nav>li>a {
+	color: #A64B00;
 }
-.navbar-default .navbar-brand{
-	 color:#1543A6;
+
+.navbar-default .navbar-brand {
+	color: #1543A6;
 }
-.lvg-title-text{
-	color:#A6530E;
+
+.lvg-title-text {
+	color: #A6530E;
 }
 
 .panel {
-	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);    
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
 }
 
-.lvg-img-icon{
+.lvg-img-icon {
 	border: 1px solid #50C878;
-	margin:5px;
-	height:60px;
-	width:80px;
+	margin: 5px;
+	height: 60px;
+	width: 80px;
 }
 
-.lvg-img-name{
+.lvg-img-name {
 	line-height: 90px;
 }
 
-.progress{
-	height:10px;
-	margin-top:45px;
+.progress {
+	height: 10px;
+	margin-top: 45px;
 }
 
 #footer {
 	font-size: 12pt;
-    height: 60px;
-    padding-top: 20px;
-    padding-left: 10px;
-  	background:linear-gradient(to top, #417DFF, #96B8FF);
-    color: #eee;
+	height: 60px;
+	padding-top: 20px;
+	padding-left: 10px;
+	background: linear-gradient(to top, #417DFF, #96B8FF);
+	color: #eee;
 }
+
 #footer-content {
 	margin: 0;
 	padding: 0;
 }
 
-#lvg-separator{
-	margin:10px 0 10px;
+#lvg-separator {
+	margin: 10px 0 10px;
 }
 
-.lvg-error{
-	font-size:10pt;
-	color:#ff2222;
+.lvg-error {
+	font-size: 10pt;
+	color: #ff2222;
 }
 
-.lvg-valid{
-	font-size:10pt;
-	color:green;
+.lvg-valid {
+	font-size: 10pt;
+	color: green;
 }
 
-.lvg-error-message{
-	font-size:24pt;
-	color:#ff2222;
+.lvg-error-message {
+	font-size: 24pt;
+	color: #ff2222;
 }
 
-.lvg-checked{
+.lvg-checked {
 	color: #39d455;
 }
 
-/* Styles for pagination */
-/*
-ul.hr {
-	margin:0px;
-	padding:5px;	
-}
-*/
-.lvg-jp-item{
-	border:2px solid #FFF;
+/*Image gallery styling*/
+
+#main-image-holder{	
+	height:420px;
 	
+		   
+}
+#main-image{	
+	display:inline-block;
+	border: 1px solid #69F;
+    width:500px;    
+}
+.lvg-jp-item {
+	border: 2px solid #FFF;
+}
 
-	}
-
+.lvg-active-image-item{
+	border: 2px solid #69F;
+}
 }
