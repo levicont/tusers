@@ -16,7 +16,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		<intercept-url pattern="/signin" access="permitAll()"/>
 		<intercept-url pattern="/files/**" access="permitAll()"/>
 		<intercept-url pattern="/home" access="hasRole('ROLE_USER')"/>
-		<intercept-url pattern="/img" access="hasRole('ROLE_USER')"/>
+		<intercept-url pattern="/img/**" access="hasRole('ROLE_USER')"/>
 		<intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
 		
 		<form-login login-page='/signin'

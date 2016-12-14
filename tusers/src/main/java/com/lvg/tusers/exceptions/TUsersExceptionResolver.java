@@ -18,28 +18,11 @@ public class TUsersExceptionResolver extends SimpleMappingExceptionResolver {
 	}
 
 	private ModelAndView getCustomModelAndView(String viewName, Exception ex, HttpServletRequest request) {
-		ModelAndView mv = super.getModelAndView(viewName, ex);
-		String cause = "No cause!";
-		
-		if (ex.getCause() != null && ex.getCause() instanceof Exception){
-			cause = printStackTrace((Exception)ex.getCause());
-			
-		}else{
-			cause = printStackTrace(ex);
-		}
-		
-		mv.addObject("errorMessage", ex.getMessage());
-		mv.addObject("exception", cause);
+		ModelAndView mv = super.getModelAndView(viewName, ex);		
+		mv.addObject("errorMessage", ex.getMessage());		
 		return mv;
 	}
 	
-	private String printStackTrace(Exception ex){
-		StringBuilder sb = new StringBuilder();
-		for(StackTraceElement stackEl: ex.getStackTrace()){
-			sb.append(stackEl.toString()).append("\n");
-		}
-		
-		return sb.toString();
-	}
+	
 
 }
