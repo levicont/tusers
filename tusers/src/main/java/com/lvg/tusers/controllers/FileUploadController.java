@@ -83,6 +83,7 @@ public class FileUploadController implements R {
 		return "home";
 	}
 
+	
 	@RequestMapping(value = "img/{id}", method = RequestMethod.GET, produces = MediaType.IMAGE_JPEG_VALUE)
 	@ResponseBody
 	private byte[] getImageSource(@PathVariable("id") Long imgId, HttpServletResponse response)
@@ -90,7 +91,7 @@ public class FileUploadController implements R {
 		LOG.info("Getting image from db");
 		byte[] accessDeniedImage = IOUtils.toByteArray(resource.getInputStream());
 		Image image = imageService.findById(imgId);
-
+		
 		if (image != null && image.getSource() != null) {
 			LOG.info("Image exists with id: " + imgId + " and has size: " + image.getSource().length
 					+ " bytes");

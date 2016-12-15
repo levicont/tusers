@@ -4,15 +4,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
-<!-- 
-<c:set var="mainImg"/>
-<c:set var="currentGallery"/>
- -->
 
 <spring:url value="/img" var="imageUrl" />
 <spring:url value="/files/img/load-icon.gif" var="loadImageUrl" />
-
 <script type="text/javascript">
 	$(function() {
 		/* initiate lazyload defining a custom event to trigger image loading  */

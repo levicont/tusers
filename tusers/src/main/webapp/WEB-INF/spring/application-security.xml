@@ -29,9 +29,8 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		 authentication-failure-url="/signin?error=true"
 		 login-processing-url="/signin"/>
 		 <security:remember-me 
-		 	remember-me-parameter="remember-me"		 	
-		 	data-source-ref="dataSource"
-		 	/>
+		 	remember-me-parameter="remember-me"
+		 	user-service-ref="userService"/>		
 		 <security:logout
 		 	delete-cookies="remember-me"
 		 	logout-url="/logout"
@@ -41,15 +40,8 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 	</security:http>
 		
 	<security:authentication-manager>		
-		<security:authentication-provider>
+		<security:authentication-provider user-service-ref="userService">
 			<security:password-encoder ref="bcrypt"/>			
-			<security:jdbc-user-service data-source-ref="dataSource" 
-				users-by-username-query="SELECT email, password, 'true' FROM tusers.user WHERE email=?"
-				authorities-by-username-query="SELECT email, 'ROLE_USER' FROM tusers.user WHERE email=?"
-				/>
-			<!-- user-service >			
-				<user name="mike" password="1" authorities="ROLE_USER"/>
-			</user-service-->
 		</security:authentication-provider>
 	</security:authentication-manager>
 	
