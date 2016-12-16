@@ -108,12 +108,7 @@ public class MainController implements R {
 		redir.addFlashAttribute(ATR_REGISTRATION_OK, ATR_REGISTRATION_OK);
 		redir.addFlashAttribute("user", user);
 		return "redirect:/signin";
-	}
-	
-//	@RequestMapping(value="upload", method = RequestMethod.POST)
-//	private String uploadImg(Model model){
-//		
-//		return "home";
-//	}
+	}	
+
 	
 }

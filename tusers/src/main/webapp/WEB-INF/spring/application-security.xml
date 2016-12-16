@@ -30,7 +30,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 		 login-processing-url="/signin"/>
 		 <security:remember-me 
 		 	remember-me-parameter="remember-me"
-		 	user-service-ref="userService"/>		
+		 	user-service-ref="userSecurityService"/>		
 		 <security:logout
 		 	delete-cookies="remember-me"
 		 	logout-url="/logout"
@@ -40,7 +40,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 	</security:http>
 		
 	<security:authentication-manager>		
-		<security:authentication-provider user-service-ref="userService">
+		<security:authentication-provider user-service-ref="userSecurityService">
 			<security:password-encoder ref="bcrypt"/>			
 		</security:authentication-provider>
 	</security:authentication-manager>

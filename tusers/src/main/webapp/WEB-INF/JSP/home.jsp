@@ -4,7 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 
 <spring:url value="/img" var="imageUrl" />
@@ -49,6 +50,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-7 text-center">
+						
 			<c:if test="${currentUser.galleries != null }">
 				<p class="h4">Gallery</p>
 				<c:forEach var="gallery" items="${currentUser.galleries}" end="1">
@@ -60,18 +62,19 @@
 					<c:forEach items="${currentGallery.images }" var="img" end="0">
 						<c:set var="mainImg" value="${img}" />
 						<div id="mainImageContainer" class="row">
-							
-								<table id="main-image-holder" class="col-lg-12 text-center">
-									<tbody>
-										<tr>
-											<c:if test="${not empty mainImg }">
-												<td class="text-center align-middle"><img id="main-image"
-													alt="Main Image" src='${imageUrl}/${mainImg.id }'></td>
-											</c:if>
-										</tr>
-									</tbody>
-								</table>
-							
+
+							<table id="main-image-holder" class="col-lg-12 text-center">
+								<tbody>
+									<tr>
+										<c:if test="${not empty mainImg }">
+											<td class="text-center align-middle"><img
+												id="main-image" alt="Main Image"
+												src='${imageUrl}/${mainImg.id }'></td>
+										</c:if>
+									</tr>
+								</tbody>
+							</table>
+
 						</div>
 						<!-- END IMAGE ITEMS -->
 					</c:forEach>

@@ -1,14 +1,9 @@
 package com.lvg.tusers.services.jpa;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +16,7 @@ import com.lvg.tusers.services.UserService;
 @Repository
 @Service("userService")
 @Transactional
-public class UserServiceJpaImpl implements UserService, UserDetailsService{
+public class UserServiceJpaImpl implements UserService{
 	private static final Logger LOG = Logger.getLogger(UserServiceJpaImpl.class);
 	
 	@Autowired
@@ -61,73 +56,6 @@ public class UserServiceJpaImpl implements UserService, UserDetailsService{
 				return false;
 		}
 		return true;
-	}
-
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		for(User user : findAll()){
-			if(username.equalsIgnoreCase(user.getEmail()))
-				return new UserDetailsImpl(user);
-		}
-		throw new UsernameNotFoundException("User with username: "+username+" not found.");
-	}
-	
-	private class UserDetailsImpl implements UserDetails{		
-		private static final long serialVersionUID = 5766594076079860180L;
-		
-		private User user;
-		
-		public UserDetailsImpl(User user) {
-			this.user = user;
-		}
-		
-		@Override
-		public Collection<? extends GrantedAuthority> getAuthorities() {
-			GrantedAuthority authority = new GrantedAuthority() {				
-				private static final long serialVersionUID = -5459325061917607618L;
-
-				@Override
-				public String getAuthority() {
-					
-					return "ROLE_USER";
-				}
-			};
-			return Lists.newArrayList(authority);
-		}
-
-		@Override
-		public String getPassword() {
-			return user.getPassword();
-		}
-
-		@Override
-		public String getUsername() {
-			return user.getEmail();
-		}
-
-		@Override
-		public boolean isAccountNonExpired() {			
-			return true;
-		}
-
-		@Override
-		public boolean isAccountNonLocked() {			
-			return true;
-		}
-
-		@Override
-		public boolean isCredentialsNonExpired() {			
-			return true;
-		}
-
-		@Override
-		public boolean isEnabled() {			
-			return true;
-		}
-		
-	}
-	
-	
-	
+	}	
 	
 }
