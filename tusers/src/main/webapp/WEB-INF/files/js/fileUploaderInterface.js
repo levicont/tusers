@@ -196,7 +196,7 @@ $(document).ready(function() {
                         }
                        
                     } else {
-                        logError('Error during uploading file `'+uploadItem.file.name+'`:<br/>'+this.lastError.text);
+                        logError('Error during uploading file "'+uploadItem.file.name+'": </br>'+this.lastError.text);
                     }
                 }
             });

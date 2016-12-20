@@ -47,6 +47,7 @@ public class FileUploadController implements R {
 			RedirectAttributes redirectAttributes, Locale locale,
 			@RequestParam(value = "file", required = false) Part file,
 			@RequestParam(value = "fileName", required = false) String name) throws Exception {
+		
 		LOG.info("Starting upload file");
 		LOG.info("UPLOADING FILE Has name: " + name);
 		if (file != null) {
@@ -54,8 +55,9 @@ public class FileUploadController implements R {
 			LOG.info("UPLOADING FILE Has content type: " + file.getContentType());
 			LOG.info("UPLOADING FILE Has size: " + file.getSize());
 			User user = ApplicationContextUtil.getUserFromSecurityContext(
-					SecurityContextHolder.getContext().getAuthentication(), userService);
+					SecurityContextHolder.getContext().getAuthentication(), userService);		
 			Gallery gallery = null;
+			
 			for (Gallery g : user.getGalleries()) {
 				gallery = g;
 				break;

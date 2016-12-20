@@ -67,6 +67,9 @@ var uploaderObject = function(params) {
                             params.oncomplete.call(self, true, this);
                         }
                     }
+                } else if(this.status == 403){
+                        var url="/signin"
+                        $(location).attr("href", url)
                 } else {
                     self.lastError = {
                         code: this.status,
