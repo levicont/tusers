@@ -68,7 +68,7 @@ var uploaderObject = function(params) {
                         }
                     }
                 } else if(this.status == 403){
-                        var url="/signin"
+                        var url="/tusers"
                         $(location).attr("href", url)
                 } else {
                     self.lastError = {
